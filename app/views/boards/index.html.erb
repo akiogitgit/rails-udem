@@ -1,0 +1,27 @@
+<div>
+    <div class="text-green-500 text-xl">
+        掲示板一覧
+    </div>
+
+    <section class="w-full">
+        <ul class="p-2 flex justify-around bg-black text-white font-bold">
+            <li>ID</li>
+            <li>タイトル</li>
+            <li>作成者</li>
+            <li>作成日時</li>
+            <li>更新日時</li>
+        </ul>
+    </section>
+
+    <section>
+        <% 4.times do |num|  %>
+            <ul class="p-2 flex justify-around font-bold">
+                <li><%= num+1 %></li>
+                <li>雑談掲示板</li>
+                <li>Taro</li>
+                <li>2021/2/19</li>
+                <li>2021/2/19</li>
+            </ul>
+        <% end %>
+    </section>
+</div>
