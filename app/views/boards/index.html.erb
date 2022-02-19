@@ -1,8 +1,12 @@
 <div>
-    <div class="text-green-500 text-xl">
-        掲示板一覧
+    <div class="mb-10 flex justify-between">
+        <h1 class="text-xl">
+            掲示板一覧
+        </h1>
+        <div class="">
+            <a href="/boards/new" class="secondary-btn">新規作成</a>
+        </div>
     </div>
-
     <section class="w-full">
         <ul class="p-2 flex justify-around bg-black text-white font-bold">
             <li>ID</li>
@@ -15,7 +19,7 @@
 
     <section>
         <% 4.times do |num|  %>
-            <ul class="p-2 flex justify-around font-bold">
+            <ul class="p-2 flex justify-around font-bold hover:bg-gray-300 ">
                 <li><%= num+1 %></li>
                 <li>雑談掲示板</li>
                 <li>Taro</li>

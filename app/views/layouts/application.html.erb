@@ -9,6 +9,20 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        .primary-btn {
+          @apply py-[6px] px-[20px] rounded-md bg-blue-500 text-white cursor-pointer inline border border-2 border-blue-500 duration-300 hover:bg-white hover:text-blue-500 ;
+        }
+        .secondary-btn {
+          @apply py-[6px] px-[20px] rounded-md bg-black text-white cursor-pointer border border-2 border-black duration-300 hover:bg-white hover:text-black ;
+        }
+        .danger-btn {
+          @apply py-[6px] px-[20px] rounded-md bg-red-500 text-white cursor-pointer inline border border-2 border-red-500 duration-300 hover:bg-white hover:text-red-500 ;
+        }
+        .form-input {
+          @apply p-2 border border-gray-500 forcus:border-black
+        }
+    </style>
   </head>
 
   <body>
@@ -17,9 +31,6 @@
         Rails tutorial
       </header>
       <main class="w-[90%] mx-auto mt-10">
-        <h1 class="text-3xl font-bold underline">
-          Hello world!
-        </h1>
         <%= yield %>
       </main>
     </div>

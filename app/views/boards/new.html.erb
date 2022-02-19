@@ -1,0 +1,45 @@
+<div class="flex items-center">
+  <h1>掲示板作成</h1>
+  <div class="ml-auto">
+    <a href="/boards" class="py-1 px-3 border border-black rounded-md hover:bg-black hover:text-white duration-300">
+      掲示板一覧
+    </a>
+  </div>
+</div>
+
+<%# %=は、Rubyの実行結果を埋め込む %>
+<%= form_with model: @board, local: true do |f| %>
+  <div>
+    <%= f.label :name, "名前" %>
+    <%= f.text_field :name, class: "form-input" %>
+  </div>
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-input" %>
+  </div>
+  <div>
+    <%= f.label :body, "本文" %>
+    <%= f.text_area :body, class: "form-input", rows: 10 %>
+  </div>
+  <div>
+    <%= f.submit "保存", class: "primary-btn" %>
+  </div>
+<% end %>
+
+ <form class="flex flex-col gap-4">
+  <div class="">
+    <label for="name">名前</label></br>
+    <input id="name" class="border-4"/>
+  </div>
+  <div class="">
+    <label for="titles">タイトル</label></br>
+    <input id="titles" class="border-4"/>
+  </div>
+  <div class="">
+    <label for="body">本文</label></br>
+    <textarea id="body" class="border-4" rows="10"></textarea>
+  </div>
+  <button type="submit" class="inline py-1 px-3 border border-black rounded-md hover:bg-black hover:text-white duration-300">
+    保存
+  </button>
+</form> 
