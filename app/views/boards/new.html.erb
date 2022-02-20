@@ -3,43 +3,4 @@
     <%= link_to "掲示板一覧", root_path, class: "secondary-btn" %>
 </div>
 
-<%# %=は、Rubyの実行結果を埋め込む formも実行結果を送るから必要 %>
-<%# method: post %>
-<%= form_with model: @board, local: true do |f| %>
-  <div class="form-group">
-    <%= f.label :name, "名前" %>
-    <%= f.text_field :name, class: "form-input" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, class: "form-input" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :body, "本文" %>
-    <%= f.text_area :body, class: "form-input", rows: 10 %>
-  </div>
-  <div>
-    <%= f.submit "保存", class: "primary-btn" %>
-  </div>
-<% end %>
-
-
-<!--
-  <form class="flex flex-col gap-4">
-  <div class="form-group">
-    <label for="name">名前</label>
-    <input id="name" class="form-input"/>
-  </div>
-  <div class="form-group">
-    <label for="titles">タイトル</label>
-    <input id="titles" class="form-input"/>
-  </div>
-  <div class="form-group">
-    <label for="body">本文</label>
-    <textarea id="body" class="form-input" rows="10"></textarea>
-  </div>
-  <button type="submit" class="inline py-1 px-3 border border-black rounded-md hover:bg-black hover:text-white duration-300">
-    保存
-  </button>
-</form> 
--->
+<%= render "shared/form"%>

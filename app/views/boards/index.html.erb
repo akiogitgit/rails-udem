@@ -3,7 +3,8 @@
         <h1 class="text-xl">
             掲示板一覧
         </h1>
-        <%= link_to "新規作成", boards_new_path, class: "secondary-btn"%>
+        <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
+        <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
     </div>
     <section class="w-full">
         <ul class="p-2 grid grid-cols-5 text-center bg-black text-white font-bold">

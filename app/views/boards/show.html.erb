@@ -2,7 +2,8 @@
 <div class="">
   <div class="flex gap-3 justify-end">
     <%= link_to "一覧",root_path, class: "secondary-btn" %>
-    <%= link_to "削除", root_path, class: "secondary-btn" %>
+    <%= link_to "編集", edit_board_path, class: "secondary-btn" %>
+    <%#= link_to "編集", edit_board_path(@board), class: "secondary-btn" %>
   </div>
 
   <section class="mt-10 font-bold w-90 border border-gray-300">
@@ -10,4 +11,10 @@
     <div class="p-4 text-md"><%= simple_format(@board.body) %></div>
     <p class="p-4 flex justify-end text-sm"><%= @board.name %></p>
   </section>
+
+  <div class="flex gap-3 justify-end">
+    <%= link_to "削除", boards_path(@board), method: :delete, class: "secondary-btn" %>
+    <%= link_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
+    <%#= link_to "削除", "/boards/#{@board.id}", method: :delete, class: "secondary-btn" %>
+  </div>
 </div>
