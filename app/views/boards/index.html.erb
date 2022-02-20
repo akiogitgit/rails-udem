@@ -1,11 +1,9 @@
 <div>
-    <div class="mb-10 flex justify-between">
+    <div class="mb-10 flex justify-between items-center">
         <h1 class="text-xl">
             掲示板一覧
         </h1>
-        <div class="">
-            <a href="/boards/new" class="secondary-btn">新規作成</a>
-        </div>
+        <%= link_to "新規作成", boards_new_path, class: "secondary-btn"%>
     </div>
     <section class="w-full">
         <ul class="p-2 grid grid-cols-5 text-center bg-black text-white font-bold">
@@ -19,19 +17,15 @@
 
     <section>
         <% @board.each do |board|  %>
-            <ul class="p-2 grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
-                <!--
-                <li>雑談掲示板</li>
-                <li>Taro</li>
-                <li>2021/2/19</li>
-                <li>2021/2/19</li>
-                -->
-                <li><%= board.id %></li>
-                <li><%= board.title %></li>
-                <li><%= board.name %></li>
-                <li><%= board.created_at.to_s(:datetime_jp) %></li>
-                <li><%= board.updated_at.to_s(:datetime_jp) %></li>
-            </ul>
+            <%= link_to "/boards/#{board.id}" do %>
+                <ul class="p-2 grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
+                    <li><%= board.id %></li>
+                    <li><%= board.title %></li>
+                    <li><%= board.name %></li>
+                    <li><%= board.created_at.to_s(:datetime_jp) %></li>
+                    <li><%= board.updated_at.to_s(:datetime_jp) %></li>
+                </ul>
+            <% end %>
         <% end %>
     </section>
 </div>

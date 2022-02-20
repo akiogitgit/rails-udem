@@ -1,10 +1,6 @@
-<div class="flex items-center">
+<div class="flex justify-between items-center">
   <h1>掲示板作成</h1>
-  <div class="ml-auto">
-    <a href="/boards" class="py-1 px-3 border border-black rounded-md hover:bg-black hover:text-white duration-300">
-      掲示板一覧
-    </a>
-  </div>
+    <%= link_to "掲示板一覧", root_path, class: "secondary-btn" %>
 </div>
 
 <%# %=は、Rubyの実行結果を埋め込む formも実行結果を送るから必要 %>

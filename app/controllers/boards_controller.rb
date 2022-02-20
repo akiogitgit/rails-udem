@@ -17,9 +17,16 @@ class BoardsController < ApplicationController
         # params[:board]に必要なやつ
     end
 
+    def show
+        # binding.pry
+        @board = Board.find(params[:id])
+    end
+    
+    # privateより下に、普通のは置かない
     private
     
     def board_params
         params.require(:board).permit(:name, :title, :body)
     end
+
 end
