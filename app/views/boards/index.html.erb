@@ -6,7 +6,7 @@
         <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
         <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
     </div>
-    <section class="w-full">
+    <section class="w-[90%]">
         <ul class="p-2 grid grid-cols-5 text-center bg-black text-white font-bold">
             <li>ID</li>
             <li>タイトル</li>
@@ -18,14 +18,19 @@
 
     <section>
         <% @board.each do |board|  %>
-            <%= link_to "/boards/#{board.id}" do %>
-                <ul class="p-2 grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
-                    <li><%= board.id %></li>
-                    <li><%= board.title %></li>
-                    <li><%= board.name %></li>
-                    <li><%= board.created_at.to_s(:datetime_jp) %></li>
-                    <li><%= board.updated_at.to_s(:datetime_jp) %></li>
-                </ul>
+            <%= link_to board do %>
+                <div class="flex">
+                    <ul class="p-2 w-[90%] grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
+                        <li><%= board.id %></li>
+                        <li><%= board.title %></li>
+                        <li><%= board.name %></li>
+                        <li><%= board.created_at.to_s(:datetime_jp) %></li>
+                        <li><%= board.updated_at.to_s(:datetime_jp) %></li>
+                    </ul>
+                    <div class="flex items-center w-[100px] text-md">
+                        <%= button_to "削除", board, method: :delete, class: "danger-btn" %><!--buttonだと行けた-->
+                    </div>
+                </div>
             <% end %>
         <% end %>
     </section>
