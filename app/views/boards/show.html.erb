@@ -15,6 +15,7 @@
   <div class="flex gap-3 justify-end">
     <%= link_to "削除", boards_path(@board), method: :delete, class: "secondary-btn" %>
     <%= link_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
+    <%= link_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
     <%#= link_to "削除", "/boards/#{@board.id}", method: :delete, class: "secondary-btn" %>
   </div>
 </div>
