@@ -57,7 +57,7 @@ group :development do
   gem "web-console"
   # gem "rack-mini-profiler"
   # gem "spring"
-  # gem "pry-byebug"
+  gem "pry-byebug"
 end
 
 group :test do

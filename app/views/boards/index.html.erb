@@ -8,7 +8,7 @@
         </div>
     </div>
     <section class="w-full">
-        <ul class="p-2 flex justify-around bg-black text-white font-bold">
+        <ul class="p-2 grid grid-cols-5 text-center bg-black text-white font-bold">
             <li>ID</li>
             <li>タイトル</li>
             <li>作成者</li>
@@ -18,13 +18,19 @@
     </section>
 
     <section>
-        <% 4.times do |num|  %>
-            <ul class="p-2 flex justify-around font-bold hover:bg-gray-300 ">
-                <li><%= num+1 %></li>
+        <% @board.each do |board|  %>
+            <ul class="p-2 grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
+                <!--
                 <li>雑談掲示板</li>
                 <li>Taro</li>
                 <li>2021/2/19</li>
                 <li>2021/2/19</li>
+                -->
+                <li><%= board.id %></li>
+                <li><%= board.title %></li>
+                <li><%= board.name %></li>
+                <li><%= board.created_at.to_s(:datetime_jp) %></li>
+                <li><%= board.updated_at.to_s(:datetime_jp) %></li>
             </ul>
         <% end %>
     </section>
