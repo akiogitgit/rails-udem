@@ -19,8 +19,11 @@
         .danger-btn {
           @apply py-[6px] px-[20px] rounded-md bg-red-500 text-white cursor-pointer inline border border-2 border-red-500 duration-300 hover:bg-white hover:text-red-500 ;
         }
+        .form-group {
+          @apply flex flex-col my-4
+        }
         .form-input {
-          @apply p-2 border border-gray-500 forcus:border-black
+          @apply p-1 border border-gray-500 ;
         }
     </style>
   </head>
@@ -30,7 +33,7 @@
       <header class="w-full h-[100px] bg-black text-white flex justify-center items-center">
         Rails tutorial
       </header>
-      <main class="w-[90%] mx-auto mt-10">
+      <main class="mx-auto mt-10 w-[90%] max-w-[800px]">
         <%= yield %>
       </main>
     </div>

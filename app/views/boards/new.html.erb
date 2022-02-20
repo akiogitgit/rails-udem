@@ -7,17 +7,18 @@
   </div>
 </div>
 
-<%# %=は、Rubyの実行結果を埋め込む %>
+<%# %=は、Rubyの実行結果を埋め込む formも実行結果を送るから必要 %>
+<%# method: post %>
 <%= form_with model: @board, local: true do |f| %>
-  <div>
+  <div class="form-group">
     <%= f.label :name, "名前" %>
     <%= f.text_field :name, class: "form-input" %>
   </div>
-  <div>
+  <div class="form-group">
     <%= f.label :title, "タイトル" %>
     <%= f.text_field :title, class: "form-input" %>
   </div>
-  <div>
+  <div class="form-group">
     <%= f.label :body, "本文" %>
     <%= f.text_area :body, class: "form-input", rows: 10 %>
   </div>
@@ -26,20 +27,24 @@
   </div>
 <% end %>
 
- <form class="flex flex-col gap-4">
-  <div class="">
-    <label for="name">名前</label></br>
-    <input id="name" class="border-4"/>
+<%
+=begin%>
+  <form class="flex flex-col gap-4">
+  <div class="form-group">
+    <label for="name">名前</label>
+    <input id="name" class="form-input"/>
   </div>
-  <div class="">
-    <label for="titles">タイトル</label></br>
-    <input id="titles" class="border-4"/>
+  <div class="form-group">
+    <label for="titles">タイトル</label>
+    <input id="titles" class="form-input"/>
   </div>
-  <div class="">
-    <label for="body">本文</label></br>
-    <textarea id="body" class="border-4" rows="10"></textarea>
+  <div class="form-group">
+    <label for="body">本文</label>
+    <textarea id="body" class="form-input" rows="10"></textarea>
   </div>
   <button type="submit" class="inline py-1 px-3 border border-black rounded-md hover:bg-black hover:text-white duration-300">
     保存
   </button>
 </form> 
+<%
+=end%>
