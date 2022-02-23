@@ -42,8 +42,7 @@ class BoardsController < ApplicationController
     
     def destroy
         @board = Board.find(params[:id])
-        # board.destroy
-        @board.delete # これと、"#{@board.id}",@boardの組み合わせできた！！！！
+        @board.destroy # deleteでもいける
         redirect_to boards_path # boardが出来ないなら、boards_path
     end
 
