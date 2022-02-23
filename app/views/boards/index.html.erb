@@ -18,8 +18,8 @@
 
     <section>
         <% @board.each do |board|  %>
-            <%= link_to board do %>
-                <div class="flex">
+            <div class="flex text-[16px]">
+                <%= link_to board do %>
                     <ul class="p-2 w-[90%] grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
                         <li><%= board.id %></li>
                         <li><%= board.title %></li>
@@ -27,11 +27,14 @@
                         <li><%= board.created_at.to_s(:datetime_jp) %></li>
                         <li><%= board.updated_at.to_s(:datetime_jp) %></li>
                     </ul>
-                    <div class="flex items-center w-[100px] text-md">
-                        <%= button_to "削除", board, method: :delete, class: "danger-btn" %><!--buttonだと行けた-->
-                    </div>
+                <% end %>
+                <div class="flex items-center w-[100px] text-md">
+                    <%= button_to "削除", board, method: :delete, class: "danger-btn" %><!--buttonだと行けた-->
                 </div>
-            <% end %>
+            </div>
         <% end %>
     </section>
+
+    <!-- kaminariのページネーション -->
+    <%= paginate @board %>
 </div>

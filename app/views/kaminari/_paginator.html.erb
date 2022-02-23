@@ -1,0 +1,38 @@
+<!-- ページネーションの見た目 -->
+
+<%= paginator.render do %>
+  <nav>
+    <ul class="flex justify-center pagination">
+        <%= first_page_tag unless current_page.first? %>
+      <%= prev_page_tag unless current_page.first? %>
+      <% each_page do |page| %>
+        <% if page.left_outer? || page.right_outer? || page.inside_window? %>
+          <%= page_tag page %>
+        <% elsif !page.was_truncated? -%>
+          <%= gap_tag %>
+        <% end %>
+      <% end %>
+      <%= next_page_tag unless current_page.last? %>
+      <%= last_page_tag unless current_page.last? %>
+    </ul>
+  </nav>
+
+  <!-- 検証でタグを確認 -->
+  <style>
+    .pagination {          
+      margin-top: 20px;
+    }
+    .pagination>li>a {          
+      border: none;
+      color: #696969;
+      padding: 3px 10px;
+    }
+    .pagination>.active>a {     
+      background: #93c9ff;
+      border-radius: 150px;
+    }
+    .pagination>li>a:hover {        
+      border-radius: 15px;
+    }
+  </style>
+<% end %>

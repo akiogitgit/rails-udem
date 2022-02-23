@@ -3,7 +3,8 @@ class BoardsController < ApplicationController
     before_action :set_board, only: %i[show edit update destroy]
 
     def index
-        @board = Board.all
+        # @board = Board.all
+        @board = Board.page(params[:page]) # kaminariのページメソッド(25件)
     end
 
     # 新規作成 new(get), create(post)
