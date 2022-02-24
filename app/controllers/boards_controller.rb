@@ -36,6 +36,7 @@ class BoardsController < ApplicationController
     def show
         # commentをここで使う
         @comment = @board.comments.new
+        @comments = Comment.all
         # binding.pry
     end
 

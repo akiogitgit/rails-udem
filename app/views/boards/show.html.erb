@@ -19,14 +19,23 @@
   </section>
 
   <div class="flex gap-3 justify-end">
-    <%#= link_to "削除", boards_path(@board), method: :delete, class: "secondary-btn" %>
-    <%#= link_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
-    <%#= link_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
-    <%#= button_to "削除", boards_path(@board, @board.id), method: :delete, class: "secondary-btn" %>
-    <%#= button_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
-    <%#= button_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
     
-    <%#= button_to "削除", "#{@board.id}", method: :delete, class: "secondary-btn" %>
     <%= button_to "削除", @board, method: :delete, class: "secondary-btn" %>
+  
+  <%#= @comment.board_id %>
   </div>
+  
+  <%= render "shared/comment_form" %> 
+  <%#= render "comment_form", comment: @comment %>
 </div>
+
+
+
+<%#= link_to "削除", boards_path(@board), method: :delete, class: "secondary-btn" %>
+<%#= link_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
+<%#= link_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
+<%#= button_to "削除", boards_path(@board, @board.id), method: :delete, class: "secondary-btn" %>
+<%#= button_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
+<%#= button_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
+
+<%#= button_to "削除", "#{@board.id}", method: :delete, class: "secondary-btn" %>

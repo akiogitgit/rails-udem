@@ -68,6 +68,8 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    amazing_print (1.4.0)
+    anbt-sql-formatter (0.1.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
@@ -179,6 +181,10 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-flog (1.6.1)
+      amazing_print
+      anbt-sql-formatter (>= 0.0.7)
+      rails (>= 4.2.0)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
     rails-i18n (7.0.2)
@@ -251,6 +257,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.2)
+  rails-flog
   rails-i18n
   selenium-webdriver
   sprockets-rails

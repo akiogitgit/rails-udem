@@ -1,0 +1,31 @@
+<% if @board.comments %>
+  <% @board.comments.each do |comment| %>
+    <%= @board.comments.count %>
+    <div class="p-4 mb-4 w-full font-bold bg-red-300 border-2 border-red-400 rounded"><%= comment.name %></div>
+  <% end %>
+<% end %>
+
+<% @comments.each do |comment| %>
+    <%= @comments.count %>
+    <div class="p-4 mb-4 w-full font-bold bg-red-300 border-2 border-red-400 rounded">
+      <%= comment.name %>
+    </div>
+  <% end %>
+
+<div>
+  <p>コメント記入</p>
+  <%= form_with model: @comment, local: true do |f| %>
+    <%= f.hidden_field :board_id %> <!-- 表示する必要のないデータ -->
+    <div class="form-group">
+      <%= f.label :name, "名前" %>
+      <%= f.text_field :name, class: "form-input" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :comment, "コメント" %>
+      <%= f.text_field :comment, class: "form-input" %>
+    </div>
+    <div>
+      <%= f.submit "保存", class: "primary-btn" %>
+    </div>
+  <% end %>
+</div>
