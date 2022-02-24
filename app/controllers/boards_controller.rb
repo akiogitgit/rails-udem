@@ -1,6 +1,7 @@
 class BoardsController < ApplicationController
+
     # 最初に指定したメソッドで実行(このメソッドの中に@boardの文が入る)
-    before_action :set_board, only: %i[show edit update destroy]
+    before_action :set_board, only: %i[show create edit update destroy]
 
     def index
         # @board = Board.all
@@ -13,19 +14,20 @@ class BoardsController < ApplicationController
         # binding.pry
     end
 
-    # filterを掛けるために、strong parameter
+    # filterを掛けるために、strong parameter(board_params)
     def create
         # newで登録したやつを、POSTで受け取って作成
         # paramsにPOSTで送信されたデータが保存される
         # params[:board]に必要なやつ
         @board = Board.find(params[:id])
         Board.create(board_params)
-        redirect_to root_path
+        # flashの任意のキーに値を格納
+        flash[:notice] = "「#{@board.title}」の掲示板を作成しました。"
+        redirect_to boards_path
     end
 
     # 動的(get)
     def show
-        # binding.pry
         # @board = Board.find(params[:id])
     end
 
@@ -37,11 +39,12 @@ class BoardsController < ApplicationController
     def update
         # @board = Board.find(params[:id])
         @board.update(board_params)
-        redirect_to board
+        flash[:notice] = "「#{@board.title}」の掲示板を更新しました。"
+        redirect_to root_path
     end
     
     def destroy
-        @board = Board.find(params[:id])
+        # @board = Board.find(params[:id])
         @board.destroy # deleteでもいける
         redirect_to boards_path # boardが出来ないなら、boards_path
     end
@@ -54,6 +57,7 @@ class BoardsController < ApplicationController
     end
 
     def set_board
+        # show create edit update destroyの一番上で実行されるから、消す
         @board = Board.find(params[:id])
     end
 end

@@ -1,4 +1,7 @@
 <div>
+    <% if flash[:notice] %>
+        <div><%= flash[:notice] %></div>
+    <% end %>
     <div class="mb-10 flex justify-between items-center">
         <h1 class="text-xl">
             掲示板一覧
