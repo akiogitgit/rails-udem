@@ -36,8 +36,7 @@ class BoardsController < ApplicationController
     def show
         # commentをここで使う
         @comment = Comment.new(board_id: @board.id)
-        # @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされる
-        @comments = Comment.all
+        # @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされるから、空のまま使われる
         # binding.pry
     end
 

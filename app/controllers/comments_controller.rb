@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
         notice: "コメントを投稿しました"
       }
     else
+      # validate error
       flash[:comment] = comment
       flash[:error] = comment.errors.full_messages
       redirect_back fallback_location: comment.board

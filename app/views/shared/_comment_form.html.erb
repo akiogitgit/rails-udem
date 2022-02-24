@@ -1,20 +1,10 @@
 <div>
-  <h2 class="mt-10 font-bold">コメント</h2>
   <div class="mt-4">
     <%= render "shared/comments" %>
   </div>
 
-  <!-- 全コメント表示
-  <% @comments.each do |comment| %>
-    <%= @comments.count %>
-    <div class="p-4 mb-4 w-full font-bold bg-red-300 border-2 border-red-400 rounded">
-      <%= comment.comment %>a
-    </div>
-  <% end %> 
-  -->
-
   <section class="mt-10">
-    <p>コメント記入</p>
+    <p class="mb-4">コメント記入</p>
     <%= form_with model: @comment, local: true do |f| %>
       <%= f.hidden_field :board_id %> <!-- 表示する必要のないデータ -->
       <div class="form-group">

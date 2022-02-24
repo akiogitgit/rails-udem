@@ -13,7 +13,7 @@
         <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
         <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
     </div>
-    <section class="w-[90%]">
+    <section class="w-[83%] sm:w-[88%]">
         <ul class="p-2 grid grid-cols-5 text-center bg-black text-white font-bold">
             <li>ID</li>
             <li>タイトル</li>
@@ -27,7 +27,7 @@
         <% @board.each do |board|  %>
             <div class="flex text-[16px]">
                 <%= link_to board do %>
-                    <ul class="p-2 w-[90%] grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
+                    <ul class="p-2 grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
                         <li><%= board.id %></li>
                         <li><%= board.title %></li>
                         <li><%= board.name %></li>
@@ -35,7 +35,7 @@
                         <li><%= board.updated_at.to_s(:datetime_jp) %></li>
                     </ul>
                 <% end %>
-                <div class="flex items-center w-[100px] text-md">
+                <div class="flex items-center justify-center w-[200px] sm:w-[140px] text-md">
                     <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %><!--buttonだと行けた-->
                 </div>
             </div>
