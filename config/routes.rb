@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'comments/create'
+  get 'comments/destroy'
   # get "boards", to: "boards#index" # 一覧
   # get "boards/new", to: "boards#new" # 新規作成
   # post "boards", to: "boards#create" # form送信
