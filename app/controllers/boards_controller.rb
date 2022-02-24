@@ -34,6 +34,9 @@ class BoardsController < ApplicationController
 
     # 動的(get) 個別ページ
     def show
+        # commentをここで使う
+        @comment = @board.comments.new
+        # binding.pry
     end
 
     # 編集edit(get), update(post)
