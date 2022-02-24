@@ -35,8 +35,8 @@ class BoardsController < ApplicationController
     # 動的(get) 個別ページ
     def show
         # commentをここで使う
-        # @comment = Comment.new(board_id: @board.id)
-        @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされる
+        @comment = Comment.new(board_id: @board.id)
+        # @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされる
         @comments = Comment.all
         # binding.pry
     end

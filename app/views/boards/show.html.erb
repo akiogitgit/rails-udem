@@ -13,7 +13,6 @@
     <%#= link_to "編集", edit_board_path(@board), class: "secondary-btn" %>
   </div>
   
-
   <section class="mt-10 font-bold w-90 border border-gray-300">
     <div class="p-4 bg-gray-100 text-3xl"><%= @board.title %></div>
     <div class="p-4 text-md"><%= simple_format(@board.body) %></div>
@@ -22,7 +21,7 @@
 
   <div class="flex gap-3 justify-end">
     
-    <%= button_to "削除", @board, method: :delete, class: "secondary-btn" %>
+    <%= button_to "削除", @board, method: :delete, class: "secondary-btn mt-4" %>
   
   <%#= @comment.board_id %>
   </div>
