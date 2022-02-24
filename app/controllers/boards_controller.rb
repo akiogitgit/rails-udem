@@ -34,14 +34,14 @@ class BoardsController < ApplicationController
 
     def update
         @board.update(board_params)
-        flash[:notice] = "「#{@board.title}」の掲示板を更新しました。"
+        flash[:notice] = "「#{@board.title}」 の掲示板を更新しました。"
         redirect_to root_path
     end
     
     def destroy
         @board.destroy # deleteでもいける
-        flash[:notice] = "「#{@board.title}」の掲示板を削除しました。"
-        redirect_to boards_path # boardが出来ないなら、boards_path
+        # flash[:error] = "「#{@board.title}」 の掲示板を削除しました。" # redirectにくっつける書き方もある
+        redirect_to boards_path, flash: { error: "「#{@board.title}」 の掲示板を削除しました。" }
     end
 
     # これより下に、普通のは置かない
