@@ -10,18 +10,26 @@ class BoardsController < ApplicationController
 
     # 新規作成 new(get), create(post)
     def new
-        @board = Board.new
+        # @board = Board.new
+        @board = Board.new(flash[:board]) # createに失敗した時、入力データはそのままにする
         # binding.pry
     end
     
-    # newで登録したやつを、POSTで受け取って作成
-    # paramsにPOSTで送信されたデータが保存される
-    # params[:board]に必要なやつが入っている
+    # newで登録したやつを、POSTで受け取って作成 paramsにPOSTで送信されたデータが保存される params[:board]に必要なやつが入っている
     # flashのnoticeというキーに値を格納
     def create
-        Board.create(board_params)
-        flash[:notice] = "「#{params[:board][:title]}」の掲示板を作成しました。"
-        redirect_to root_path
+        # Board.create(board_params) # validateやらないなら、createでOK
+        board =  Board.new(board_params)
+        if board.save
+            flash[:notice] = "「#{params[:board][:title]}」の掲示板を作成しました。"
+            redirect_to root_path
+        else 
+            # flashで、newに入力データを渡す
+            redirect_to new_board_path, flash: {
+                board: board,
+                error: board.errors.full_messages
+            }
+        end
     end
 
     # 動的(get) 個別ページ
@@ -44,8 +52,7 @@ class BoardsController < ApplicationController
         redirect_to boards_path, flash: { error: "「#{@board.title}」 の掲示板を削除しました。" }
     end
 
-    # これより下に、普通のは置かない
-    private
+    private # これより下に、普通のは置かない
     
     # 必要ないのを受け取らないように、strong parameterで制限する
     def board_params
