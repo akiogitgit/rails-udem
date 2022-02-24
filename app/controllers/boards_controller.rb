@@ -20,7 +20,7 @@ class BoardsController < ApplicationController
     def create
         # Board.create(board_params) # validateやらないなら、createでOK
         board =  Board.new(board_params)
-        if board.save
+        if board.save # validationチェック
             flash[:notice] = "「#{params[:board][:title]}」の掲示板を作成しました。"
             redirect_to root_path
         else 
@@ -35,7 +35,8 @@ class BoardsController < ApplicationController
     # 動的(get) 個別ページ
     def show
         # commentをここで使う
-        @comment = @board.comments.new
+        # @comment = Comment.new(board_id: @board.id)
+        @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされる
         @comments = Comment.all
         # binding.pry
     end

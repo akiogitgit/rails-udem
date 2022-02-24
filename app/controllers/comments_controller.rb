@@ -1,12 +1,15 @@
 class CommentsController < ApplicationController
   def create
+    # こっちはCommentの方のcomment
     comment = Comment.new(comment_params)
     if comment.save
-      redirect_to root_path, flash:{
+      redirect_to comment.board, flash:{
         notice: "コメントを投稿しました"
       }
     else
-      redirect_to board_path
+      flash[:comment] = comment
+      flash[:error] = comment.errors.full_messages
+      redirect_back fallback_location: comment.board
     end
     # binding.pry
   end
