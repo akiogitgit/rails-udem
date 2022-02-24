@@ -31,6 +31,7 @@ group :development do
   # gem "rack-mini-profiler"
   # gem "spring"
   gem "pry-byebug"
+  gem "annotate"
 end
 
 group :test do
