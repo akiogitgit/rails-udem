@@ -10,8 +10,11 @@
 #  updated_at :datetime         not null
 #
 class Board < ApplicationRecord
-  has_many :comments
-  has_many :board_tag_relations
+  # commentは一体多, tagsは多対多, board_tag_relationは、中間テーブル
+  # dependentの
+
+  has_many :comments, dependent: :delete_all
+  has_many :board_tag_relations, dependent: :delete_all
   has_many :tags, through: :board_tag_relations
   #                必須　　　　　　　文字数
   validates :name, presence: true, length: {maximum: 20}

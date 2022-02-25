@@ -1,9 +1,10 @@
 <!-- 個人ページ boards/1 -->
 <div class="">
+
+  <!-- flashメッセージ -->
   <% if flash[:notice] %>
     <div class="p-4 mb-10 w-full font-bold bg-green-300 border-2 border-green-400 rounded"><%= flash[:notice] %></div>
   <% end %>
-
   <% if flash[:error].instance_of?(Array) %>
     <ul class="p-4 mb-10 w-full font-bold bg-red-300 border-2 border-red-400 rounded">
       <% flash[:error].each do |msg| %>
@@ -20,7 +21,14 @@
   </div>
   
   <section class="mt-10 font-bold w-90 border-2 border-gray-300">
-    <div class="p-4 bg-gray-100 text-3xl"><%= @board.title %></div>
+    <div class="p-4 bg-gray-100 text-3xl">
+      <%= @board.title %>
+      <ul>
+      <% @board.tags.each do |tag| %>
+        <li class="inline px-2 py-1 bg-blue-500 text-white text-sm rounded"><%= tag.name %></li>
+      <% end %>
+      </ul>
+    </div>
     <div class="p-4 text-md"><%= simple_format(@board.body) %></div>
     <p class="p-4 flex justify-end text-sm"><%= @board.name %></p>
   </section>

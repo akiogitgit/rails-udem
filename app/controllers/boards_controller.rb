@@ -71,7 +71,7 @@ class BoardsController < ApplicationController
     
     # 必要ないのを受け取らないように、strong parameterで制限する
     def board_params
-        params.require(:board).permit(:name, :title, :body)
+        params.require(:board).permit(:name, :title, :body, tag_ids: []) # tag_idsはタグ
     end
 
     def set_board
