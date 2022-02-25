@@ -1,21 +1,16 @@
 # == Schema Information
 #
-# Table name: boards
+# Table name: tags
 #
 #  id         :integer          not null, primary key
-#  body       :text
 #  name       :string
-#  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+require "test_helper"
 
-one:
-  name: MyString
-  title: MyString
-  body: MyText
-
-two:
-  name: MyString
-  title: MyString
-  body: MyText
+class TagTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

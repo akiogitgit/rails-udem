@@ -1,21 +1,12 @@
 # == Schema Information
 #
-# Table name: boards
+# Table name: tags
 #
 #  id         :integer          not null, primary key
-#  body       :text
 #  name       :string
-#  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
-one:
-  name: MyString
-  title: MyString
-  body: MyText
-
-two:
-  name: MyString
-  title: MyString
-  body: MyText
+class Tag < ApplicationRecord
+  has_many :board_tag_relations
+end
