@@ -5,7 +5,10 @@ class BoardsController < ApplicationController
 
     def index
         # @board = Board.all
-        @board = Board.page(params[:page]) # kaminariのページメソッド(25件)
+        @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
+        @boards = Tag.find(params[:tag_id]).boards.page(params[:page]) if params[:tag_id] != nil
+        # Tagの方から探して、Tagに関連付くboardを取得
+        # Tag.find(1).boards.title
     end
 
     # 新規作成 new(get), create(post)

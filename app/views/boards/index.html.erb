@@ -10,8 +10,24 @@
         <h1 class="text-xl">
             掲示板一覧
         </h1>
-        <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
-        <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
+
+        <div class="flex items-center gap-4">
+            <!-- submitで、表示するパス -->
+            <%= form_tag boards_path, method: :get, class: "p-1 border-2 border-gray-300 rounded" do %>
+                <!-- select option。第一にselectのname属性。第二にselectの選択肢を複数作成 Tag.allが選択肢、:idがvalueにセット、:nameは表示名、次が何を選択するか -->
+                <%= select_tag :tag_id,
+                                options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                                {
+                                    prompt: "タグで絞り込む", # 何も選択していない時表示
+                                    class: "",
+                                    onchange: "submit(this.form);" # 変更される度に実行(ここではsubmit)
+                                }
+                %>
+            <% end %>
+
+            <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
+            <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
+        </div>
     </div>
     <section class="w-[83%] sm:w-[88%]">
         <ul class="p-2 grid grid-cols-5 text-center bg-black text-white font-bold">
@@ -24,7 +40,7 @@
     </section>
 
     <section>
-        <% @board.each do |board|  %>
+        <% @boards.each do |board|  %>
             <div class="flex text-[16px]">
                 <%= link_to board do %>
                     <ul class="p-2 grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
@@ -43,5 +59,5 @@
     </section>
 
     <!-- kaminariのページネーション -->
-    <%= paginate @board %>
+    <%= paginate @boards %>
 </div>
