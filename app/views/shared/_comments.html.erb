@@ -1,11 +1,10 @@
 <section>
-  <% if @board.comments.count %>
-    <!-- この文字消してええ  -->
+  <% if @board.comments.count > 0 %>
     <h2 class="mt-14 font-bold">コメント</h2>
 
     <% @board.comments.each do |comment| %>
       <%#= @board.comments.count %>
-      <div class="flex justify-around">
+      <div class="flex justify-between">
         <div class="p-4 mb-4 w-full border-b-2">
           <%= simple_format(comment.comment) %>
           <div class="flex justify-end gap-4 text-sm ">
@@ -13,8 +12,9 @@
             <p><%= comment.created_at.to_s(:datetime_jp) %></p>
           </div>
         </div>
-        <div>
-          <%= button_to "削除", comment, method: :delete, class: "danger-btn" %>
+        <div class=" w-[100px] sm:w-[80px] text-md">
+          <!-- confirmとかは発動しない -->
+          <%= button_to "削除", comment, method: :delete, data: { confirm: "削除してもよろしいですか？", disable_with: 'loading...'}, class: "danger-btn" %>
         </div>
       </div>
     <% end %>

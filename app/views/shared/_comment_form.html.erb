@@ -4,7 +4,7 @@
   </div>
 
   <section class="mt-10">
-    <p class="mb-4">コメント記入</p>
+    <p class="mb-4 font-bold">コメント記入</p>
     <%= form_with model: @comment, local: true do |f| %>
       <%= f.hidden_field :board_id %> <!-- 表示する必要のないデータ -->
       <div class="form-group">
