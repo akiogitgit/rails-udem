@@ -6,9 +6,11 @@ class BoardsController < ApplicationController
     def index
         # @board = Board.all
         @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
-        @boards = Tag.find(params[:tag_id]).boards.page(params[:page]) if params[:tag_id] != nil
+        @boards = Tag.find(params[:tag_id]).boards.page(params[:page]) if params[:tag_id] != nil # kaminariも適応される
         # Tagの方から探して、Tagに関連付くboardを取得
         # Tag.find(1).boards.title
+
+        # タグで絞り込むを選択するとエラー
     end
 
     # 新規作成 new(get), create(post)
