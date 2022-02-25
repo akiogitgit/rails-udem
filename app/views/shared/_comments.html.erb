@@ -5,11 +5,16 @@
 
     <% @board.comments.each do |comment| %>
       <%#= @board.comments.count %>
-      <div class="p-4 mb-4 w-full border-b-2">
-        <%= simple_format(comment.comment) %>
-        <div class="flex justify-end gap-4 text-sm ">
-          <p><%= comment.name %></p>
-          <p><%= comment.created_at.to_s(:datetime_jp) %></p>
+      <div class="flex justify-around">
+        <div class="p-4 mb-4 w-full border-b-2">
+          <%= simple_format(comment.comment) %>
+          <div class="flex justify-end gap-4 text-sm ">
+            <p><%= comment.name %></p>
+            <p><%= comment.created_at.to_s(:datetime_jp) %></p>
+          </div>
+        </div>
+        <div>
+          <%= button_to "削除", comment, method: :delete, class: "danger-btn" %>
         </div>
       </div>
     <% end %>
