@@ -41,13 +41,24 @@ class BoardsController < ApplicationController
     end
 
     # 編集edit(get), update(post)
-    def edit
+    def edit # @boardを受け取っている
+        # @board = Board.find(params[:id])
+        # if flash[:error]
+        #     @board = flash[:board]
+        #     binding.pry
+        # end
     end
 
     def update
-        @board.update(board_params)
-        flash[:notice] = "「#{@board.title}」 の掲示板を更新しました。"
-        redirect_to root_path
+        if @board.update(board_params)
+            flash[:notice] = "「#{@board.title}」 の掲示板を更新しました。"
+            redirect_to root_path
+        else
+            flash[:board] = board_params
+            flash[:error] = @board.errors.full_messages
+            redirect_back(fallback_location: root_path)
+            # redirect_to edit
+        end
     end
     
     def destroy
