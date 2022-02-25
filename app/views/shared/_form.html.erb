@@ -1,18 +1,25 @@
 <%# %=は、Rubyの実行結果を埋め込む formも実行結果を送るから必要 %>
 <%# method: post %>
 
+<!-- 今更だけど、1はtrue, 0はfalseとか出来ないよ -->
+<!-- false: nil,false,  true: 1,0,"",true -->
+<%= "" ? "apple" : "nonn" %>
+<%= "anpan!" if nil %>
+
+
+<!-- validationって、ここで書けば良くね？ -->
 <%= form_with model: @board, local: true do |f| %>
   <div class="form-group">
     <%= f.label :name, "名前" %>
-    <%= f.text_field :name, class: "form-input" %>
+    <%= f.text_field :name, class: "form-input", autofocus: true, required: true, maxlength: "20" %>
   </div>
   <div class="form-group">
     <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, class: "form-input" %>
+    <%= f.text_field :title, class: "form-input", required: true, maxlength: "30" %>
   </div>
   <div class="form-group">
     <%= f.label :body, "本文" %>
-    <%= f.text_area :body, class: "form-input", rows: 10 %>
+    <%= f.text_area :body, class: "form-input", rows: 10, required: true, maxlength: "500" %>
   </div>
   <div>
     <%= f.submit "保存", class: "primary-btn" %>

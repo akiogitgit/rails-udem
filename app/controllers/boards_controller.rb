@@ -43,10 +43,10 @@ class BoardsController < ApplicationController
     # 編集edit(get), update(post)
     def edit # @boardを受け取っている
         # @board = Board.find(params[:id])
-        # if flash[:error]
-        #     @board = flash[:board]
-        #     binding.pry
-        # end
+        if flash[:error]
+            @board2 = flash[:board]
+            # binding.pry
+        end
     end
 
     def update

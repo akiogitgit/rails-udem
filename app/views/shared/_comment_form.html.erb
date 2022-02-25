@@ -1,3 +1,5 @@
+<!-- コメント入力 -->
+
 <div>
   <div class="mt-4">
     <%= render "shared/comments" %>
@@ -9,7 +11,7 @@
       <%= f.hidden_field :board_id %> <!-- 表示する必要のないデータ -->
       <div class="form-group">
         <%= f.label :name, "名前" %>
-        <%= f.text_field :name, class: "form-input" %>
+        <%= f.text_field :name, class: "form-input", autofocus: true %>
       </div>
       <div class="form-group">
         <%= f.label :comment, "コメント" %>
