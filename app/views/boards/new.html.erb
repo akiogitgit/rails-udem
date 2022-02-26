@@ -1,10 +1,3 @@
-<% if flash[:error] %>
-  <ul class="p-4 mb-10 w-full font-bold bg-red-300 border-2 border-red-400 rounded">
-    <% flash[:error].each do |msg| %>
-      <li class="mb-2"><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
 <div class="flex justify-between items-center">
   <h1>掲示板作成</h1>
     <%= link_to "掲示板一覧", boards_path, class: "secondary-btn" %>
