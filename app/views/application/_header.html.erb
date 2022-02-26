@@ -1,9 +1,22 @@
+<header class="w-full h-[100px] bg-black text-white flex flex-col justify-center">
+  <nav>
+    <div class="flex gap-6 w-[95%] mx-auto max-w-[800px]">
+      <%= link_to "BoardApp", boards_path %>
+      <ul class="flex gap-4">
+        <%= header_link_item("Home",new_board_path) %>
+        <%= header_link_item("Home",new_board_path) %>
+        <%= header_link_item("Home",new_board_path) %>
+        <%= header_link_item("Home",new_board_path) %>
+        <%= header_link_item("Home",new_board_path) %>
+        <%= header_link_item("Boards",boards_path) %>
+      </ul>
+    </div>
+  </nav>
+</header>
 
-<nav>
-  <div>
-    <ul>
-      <%= header_link_item("Home",boards_path) %>
-      <%= header_link_item("Boards",boards_path) %>
-    </ul>
-  </div>
-</nav>
+<!--
+  複数の書き方
+  <%= link_to boards_path do%>
+    Rails Udemy
+  <% end %>
+-->

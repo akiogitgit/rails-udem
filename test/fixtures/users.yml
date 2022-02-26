@@ -2,17 +2,17 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  email      :string
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string
+#  password_digest :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 one:
   name: MyString
-  email: MyString
+  password_digest: MyString
 
 two:
   name: MyString
-  email: MyString
+  password_digest: MyString

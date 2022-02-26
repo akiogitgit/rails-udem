@@ -30,12 +30,7 @@
 
   <body>
     <div class="text-xl">
-      <header class="w-full h-[100px] bg-black text-white flex justify-center items-center">
-        <%= link_to boards_path do%>
-          Rails Udemy
-        <% end %>
-        <%= render "application/header" %>
-      </header>
+      <%= render "application/header" %>
       <main class="mx-auto my-10 w-[95%] max-w-[800px]">
         <%= yield %>
       </main>
