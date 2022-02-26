@@ -2,13 +2,14 @@ class TagsController < ApplicationController
   before_action :set_tag, only: %i[destroy]
   def index
     @tags = Tag.all
+    @tag = Tag.new
   end
 
   def create
     @tag = Tag.new
     tag = Tag.new(tag_params)
     if tag.save
-      redirect_to board_path,flash:{ notice: "タグを作成" }
+      redirect_to boards_path,flash:{ notice: "タグを作成" }
     else
       redirect_to tags_path,flash:{ notice: "タグの作成失敗" }
     end
@@ -16,7 +17,7 @@ class TagsController < ApplicationController
 
   def destroy
     if @tag.destroy
-      redirect_to board_path,flash:{ notice: "タグを削除" }
+      redirect_to boards_path,flash:{ notice: "タグを削除" }
     else
       redirect_to tags_path,flash:{ error: "タグの削除失敗" }
     end

@@ -1,12 +1,15 @@
 
 <div>
   <section>
-    <h1>Tag一覧</h1>
+    <h1 class="font-bold">Tag一覧</h1>
     <% if @tags.present? %>
-      <ul>
+      <ul class="p-4 mt-6 flex flex-wrap gap-4 border-2 border-gray-300 rounded">
       <% @tags.each do |tag| %>
-        <li>
+        <li class="flex">
           <%= tag.name %>
+          <div class="overflow-hidden">
+            <%= button_to "×", tag, method: :delete, class: "ml-1 px-[2.5px] text-white bg-red-600 text-4xl font-bold inline translate-y-[-27%]" %>
+          </div>
         </li>
       <% end %>
       </ul>
@@ -14,7 +17,16 @@
   </section>
 
   
-  <section>
-    <h1>Tag作成</h1>
+  <section class="mt-10">
+    <h1 class="font-bold">Tag作成</h1>
+    <%= form_with model: @tag, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "タグ名", class: "mb-4" %>
+        <%= f.text_field :name, class: "form-input" %>
+        <%= f.submit "作成", class: "inline primary-btn" %>
+      </div>
+    <% end %>
+
+    
   </section>
 </div>
