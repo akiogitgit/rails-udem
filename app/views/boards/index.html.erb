@@ -1,6 +1,6 @@
 <div>
-    <div class="mb-10 flex justify-between items-center">
-        <h1 class="text-xl">
+    <div class="mb-10 flex flex-col sm:flex-row sm:justify-between items-center">
+        <h1 class="mb-4 sm:mb-0 font-bold">
             掲示板一覧
         </h1>
 
@@ -22,8 +22,8 @@
             <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
         </div>
     </div>
-    <section class="w-[83%] sm:w-[88%]">
-        <ul class="p-2 grid grid-cols-5 text-center bg-black text-white font-bold">
+    <section class=" sm:w-[88%]">
+        <ul class="p-2 grid grid-cols-5 text-center bg-black text-white text-sm sm:text-xl font-bold">
             <li>ID</li>
             <li>タイトル</li>
             <li>作成者</li>

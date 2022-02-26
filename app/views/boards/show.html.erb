@@ -7,17 +7,20 @@
     <%= link_to "編集", edit_board_path, class: "secondary-btn" %>
   </div>
   
-  <section class="mt-10 font-bold w-90 border-2 border-gray-300">
-    <div class="p-4 bg-gray-100 text-3xl">
-      <%= @board.title %>
-      <ul>
-      <% @board.tags.each do |tag| %>
-        <li class="inline px-2 py-1 bg-blue-500 text-white text-sm rounded"><%= tag.name %></li>
-      <% end %>
-      </ul>
+  <!-- タイトル、タグ、本文 -->
+  <section>
+    <div class="mt-10 font-bold w-90 border-2 border-gray-300">
+      <div class="p-4 bg-gray-100 text-3xl">
+        <%= @board.title %>
+        <ul class="flex flex-wrap gap-2">
+        <% @board.tags.each do |tag| %>
+          <li class="inline px-2 py-1 bg-blue-500 text-white text-sm rounded"><%= tag.name %></li>
+        <% end %>
+        </ul>
+      </div>
+      <div class="p-4 text-md"><%= simple_format(@board.body) %></div>
+      <p class="p-4 flex justify-end text-sm"><%= @board.name %></p>
     </div>
-    <div class="p-4 text-md"><%= simple_format(@board.body) %></div>
-    <p class="p-4 flex justify-end text-sm"><%= @board.name %></p>
   </section>
 
   <div class="flex gap-3 justify-end">
