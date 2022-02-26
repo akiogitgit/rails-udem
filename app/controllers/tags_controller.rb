@@ -9,17 +9,17 @@ class TagsController < ApplicationController
     @tag = Tag.new
     tag = Tag.new(tag_params)
     if tag.save
-      redirect_to boards_path,flash:{ notice: "タグを作成" }
+      redirect_to tags_path,flash:{ notice: "タグを作成しました。" }
     else
-      redirect_to tags_path,flash:{ notice: "タグの作成失敗" }
+      redirect_to tags_path,flash:{ notice: "タグの作成に失敗しました。" }
     end
   end
 
   def destroy
     if @tag.destroy
-      redirect_to boards_path,flash:{ notice: "タグを削除" }
+      redirect_to tags_path,flash:{ error: "タグを削除しました。" }
     else
-      redirect_to tags_path,flash:{ error: "タグの削除失敗" }
+      redirect_to tags_path,flash:{ error: "タグの削除に失敗しました" }
     end
   end
 
@@ -30,6 +30,6 @@ class TagsController < ApplicationController
   end
 
   def set_tag
-    @tag = Tag.new(params:[:tags])
+    @tag = Tag.find(params[:id])
   end
 end
