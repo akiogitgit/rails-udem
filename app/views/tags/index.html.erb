@@ -1,0 +1,20 @@
+
+<div>
+  <section>
+    <h1>Tag一覧</h1>
+    <% if @tags.present? %>
+      <ul>
+      <% @tags.each do |tag| %>
+        <li>
+          <%= tag.name %>
+        </li>
+      <% end %>
+      </ul>
+    <% end %>
+  </section>
+
+  
+  <section>
+    <h1>Tag作成</h1>
+  </section>
+</div>
