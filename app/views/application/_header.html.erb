@@ -3,12 +3,12 @@
     <div class="flex gap-6 w-[95%] mx-auto max-w-[800px]">
       <%= link_to "BoardApp", boards_path %>
       <ul class="flex gap-4">
+        <%= header_link_item("ホーム",boards_path) %>
+        <%= header_link_item("作成",new_board_path) %>
         <%= header_link_item("Home",new_board_path) %>
         <%= header_link_item("Home",new_board_path) %>
         <%= header_link_item("Home",new_board_path) %>
         <%= header_link_item("Home",new_board_path) %>
-        <%= header_link_item("Home",new_board_path) %>
-        <%= header_link_item("Boards",boards_path) %>
       </ul>
     </div>
   </nav>
