@@ -3,7 +3,7 @@
 <%= paginator.render do %>
   <nav>
     <ul class="flex justify-center pagination">
-        <%= first_page_tag unless current_page.first? %>
+        <%#= first_page_tag unless current_page.first? %>
       <%= prev_page_tag unless current_page.first? %>
       <% each_page do |page| %>
         <% if page.left_outer? || page.right_outer? || page.inside_window? %>
@@ -13,7 +13,7 @@
         <% end %>
       <% end %>
       <%= next_page_tag unless current_page.last? %>
-      <%= last_page_tag unless current_page.last? %>
+      <%#= last_page_tag unless current_page.last? %>
     </ul>
   </nav>
 
@@ -21,11 +21,12 @@
   <style>
     .pagination {          
       margin-top: 20px;
+      font-size: 15px;
     }
     .pagination>li>a {          
       border: none;
       color: #696969;
-      padding: 3px 10px;
+      padding: 1px 7px;
     }
     .pagination>.active>a {     
       background: #93c9ff;

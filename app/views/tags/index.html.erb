@@ -20,13 +20,11 @@
   <section class="mt-10">
     <h1 class="font-bold">Tag作成</h1>
     <%= form_with model: @tag, local: true do |f| %>
-      <div class="form-group">
-        <%= f.label :name, "タグ名", class: "mb-4" %>
-        <%= f.text_field :name, class: "form-input" %>
+      <div class="form-group sm:flex-row sm:items-center sm:mt-4">
+        <%#= f.label :name, "タグ名", class: "mb-4 sm:mr-4" %>
+        <%= f.text_field :name, class: "form-input w-full sm:mr-2"%>
         <%= f.submit "作成", class: "inline primary-btn" %>
       </div>
     <% end %>
-
-    
   </section>
 </div>

@@ -27,17 +27,19 @@ false: nil,false,  true: 1,0,"",true
   <div>
     <p class="">タグ</p>
     <!--                   相手の要素名_ids 表示する :id value(checkbox), :name label(tag.text)　-->
-    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-      <div>
-        <%= tag.label class: "" do %>
-          <%= tag.check_box class: "" %>
-          <%= tag.text %>
+    <ul class="flex flex-wrap gap-2">
+      <li>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+          <%= tag.label class: "" do %>
+            <%= tag.check_box class: "" %>
+            <%= tag.text %>
+          <% end %>
         <% end %>
-      </div>
-    <% end %>
+      </li>
+    </ul>
   </div>
 
-  <div>
+  <div class="mt-4">
     <%= f.submit "保存", class: "primary-btn" %>
   </div>
 <% end %>

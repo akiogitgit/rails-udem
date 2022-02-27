@@ -5,12 +5,17 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# bundle exec rails db:seed で実行
 if Rails.env == "development"
+
+  # 投稿作成
   (1..50).each do |i|
     Board.create(name: "ユーザー#{i}", title: "タイトル#{i}", body: "本文#{i}")
   end
 
-  (1..10).each do |i|
-    Tag.create(name: "タグ#{i}")
-  end
+  # タグ作成
+  # (1..10).each do |i|
+  #   Tag.create(name: "タグ#{i}")
+  # end
 end
