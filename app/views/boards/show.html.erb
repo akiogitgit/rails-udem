@@ -21,10 +21,15 @@
       <div class="p-4 text-md"><%= simple_format(@board.body) %></div>
       <p class="p-4 flex justify-end text-sm"><%= @board.name %></p>
     </div>
+
+    <div class="text-sm text-gray-500 text-right">
+      <p>作成日：<%= @board.created_at.to_s(:datetime_jp) %></p>
+      <p>更新日：<%= @board.updated_at.to_s(:datetime_jp) %></p>
+    </div>
   </section>
 
   <div class="flex gap-3 justify-end">
-    <%= button_to "削除", @board, method: :delete, class: "danger-btn mt-4" %>
+    <%= button_to "投稿を削除", @board, method: :delete, class: "danger-btn mt-4" %>
   </div>
   
   <!-- コメント -->

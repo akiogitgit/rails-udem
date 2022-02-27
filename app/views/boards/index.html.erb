@@ -22,13 +22,13 @@
             <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
         </div>
     </div>
-    <section class=" sm:w-[88%]">
-        <ul class="p-2 grid grid-cols-5 text-center bg-black text-white text-sm sm:text-xl font-bold">
+    <section class="sm:w-[88%]">
+        <ul class="p-2 grid grid-cols-4 text-center bg-black text-white text-sm sm:text-xl font-bold">
             <li>ID</li>
             <li>タイトル</li>
             <li>作成者</li>
             <li>作成日時</li>
-            <li>更新日時</li>
+            <!--<li>更新日時</li>-->
         </ul>
     </section>
 
@@ -36,15 +36,15 @@
         <% @boards.each do |board|  %>
             <div class="flex text-[16px]">
                 <%= link_to board do %>
-                    <ul class="p-2 grid grid-cols-5 text-center font-bold hover:bg-gray-300 border-b-2">
+                    <ul class="p-2 sm:w-[82vw] grid grid-cols-4 text-center font-bold hover:bg-gray-300 border-b-2">
                         <li><%= board.id %></li>
                         <li><%= board.title %></li>
                         <li><%= board.name %></li>
                         <li><%= board.created_at.to_s(:datetime_jp) %></li>
-                        <li><%= board.updated_at.to_s(:datetime_jp) %></li>
+                        <!--<li><%= board.updated_at.to_s(:datetime_jp) %></li>-->
                     </ul>
                 <% end %>
-                <div class="flex items-center justify-center w-[200px] sm:w-[140px] text-md">
+                <div class="hidden sm:block mt-4 text-center w-[100px] text-md">
                     <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %><!--buttonだと行けた-->
                 </div>
             </div>
