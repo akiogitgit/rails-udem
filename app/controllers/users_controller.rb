@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id # セッションに保存 user_id はなんでもいい
-      session[:anpan] = user.id
+      # session[:anpan] = user.id
       redirect_to mypage_path, flash: { notice: "ユーザーを登録しました" }
     else
       redirect_to new_user_path, flash: {
@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   def me
     @users = User.all
+    @current_user = User.find(session[:user_id]) if session[:user_id].present?
     # binding.pry
   end
 

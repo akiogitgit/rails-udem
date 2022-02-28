@@ -1,0 +1,13 @@
+<!-- ユーザー登録form -->
+<!-- sessionというkeyをつける、session[:name], session[:password]のname属性がinputタグにつく -->
+<%= form_with scope: :session, url: login_path, class: "" do |f| %>
+  <div class="form-group">
+    <%= f.label :name, "ユーザー名", class: "" %>
+    <%= f.text_field :name, class: "form-input", autofocus: true, required: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, "パスワード", class: "" %>
+    <%= f.password_field :password, class: "form-input", required: true %>
+  </div>
+  <%= f.submit "ログイン", class: "primary-btn" %>
+<% end %>
