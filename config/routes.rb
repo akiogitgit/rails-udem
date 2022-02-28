@@ -2,7 +2,10 @@
 #
 
 Rails.application.routes.draw do
-  root "boards#index"
+  get 'home/index'
+  get 'sessions/create'
+  get 'sessions/destroy'
+  root "home#index"
 
   #     パス名省略　　　アクション  ->boards_path, boards_new_pathで使える
   # get "boards", to: "boards#index" # 一覧
