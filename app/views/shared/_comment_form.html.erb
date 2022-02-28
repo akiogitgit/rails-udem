@@ -7,10 +7,14 @@
   <section class="mt-10">
     <p class="mb-4 font-bold">コメント記入</p>
     <%= form_with model: @comment, local: true do |f| %>
-      <%= f.hidden_field :board_id %> <!-- 表示する必要のないデータ -->
+      <%= f.hidden_field :board_id %> <!-- 表示しないで送信するデータ -->
       <div class="form-group">
-        <%= f.label :name, "名前" %>
-        <%= f.text_field :name, class: "form-input" %>
+        <% if @current_user %>
+          <%= f.hidden_field :name, value: @current_user.name %>
+        <% else %>
+          <%= f.label :name, "名前" %>
+          <%= f.text_field :name, class: "form-input" %>
+        <% end %>
       </div>
       <div class="form-group">
         <%= f.label :comment, "コメント" %>

@@ -13,7 +13,8 @@
 
         <!-- ログイン時 -->
       <ul class="flex gap-4">
-        <% if session[:user_id].present? %>
+        <%# <% if session[:user_id].present? %>
+        <% if @current_user %>
           <li><%= link_to "マイページ", mypage_path, class: "duration-300 hover:opacity-60" %></li>
           <li><%= button_to "ログアウト", logout_path, method: :delete, class: "duration-300 hover:opacity-60" %></li>
         <% else %>
