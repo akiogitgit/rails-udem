@@ -17,7 +17,8 @@ class BoardsController < ApplicationController
   def new
     # @board = Board.new
     @board = Board.new(flash[:board]) # createに失敗した時、入力データはそのままにする
-    # binding.pry
+    @current_user = User.find(session[:user_id]) if session[:user_id].present?
+
   end
   
   # newで登録したやつを、POSTで受け取って作成 paramsにPOSTで送信されたデータが保存される params[:board]に必要なやつが入っている
