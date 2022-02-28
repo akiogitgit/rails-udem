@@ -10,4 +10,6 @@
 class Tag < ApplicationRecord
   has_many :board_tag_relations, dependent: :delete_all
   has_many :boards, through: :board_tag_relations
+
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: {maximum: 10}
 end

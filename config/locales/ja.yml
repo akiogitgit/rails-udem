@@ -16,3 +16,5 @@ ja:
       comment:
         name: 名前
         comment: コメント
+      tag:
+        name: 名前

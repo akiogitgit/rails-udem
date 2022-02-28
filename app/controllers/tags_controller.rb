@@ -6,12 +6,12 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.new
+    @tag = Tag.new # newがないから
     tag = Tag.new(tag_params)
     if tag.save
       redirect_to tags_path,flash:{ notice: "タグを作成しました。" }
     else
-      redirect_to tags_path,flash:{ notice: "タグの作成に失敗しました。" }
+      redirect_to tags_path,flash:{ error: tag.errors.full_messages }
     end
   end
 
