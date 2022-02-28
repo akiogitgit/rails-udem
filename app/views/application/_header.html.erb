@@ -3,10 +3,26 @@
     <div class="flex gap-6 w-[95%] mx-auto max-w-[800px]">
       <%= link_to "BoardApp", root_path, class: "duration-300 hover:opacity-60" %>
       <ul class="flex gap-4">
-        <%= header_link_item("board",boards_path) %>
-        <%= header_link_item("作成",new_board_path) %>
-        <%= header_link_item("タグ",tags_path) %>
+        <li><%= header_link_item("ホーム",root_path) %></li>
+        <li><%= header_link_item("掲示板一覧",boards_path) %></li>
+        <li><%= header_link_item("作成",new_board_path) %></li>
+        <li><%= header_link_item("タグ",tags_path) %></li>
+
+        <!-- ログイン時 -->
+        <% if false %>
+          <li><%= link_to "マイページ", mypage_path, class: "" %></li>
+          <li><%= button_to "ログアウト", logout_path, method: :delete, class: "" %></li>
+        <% else %>
+          <li><%= link_to "登録", new_user_path, class: "" %></li>
+          <li><%= link_to "ログイン", new_user_path, class: "" %></li>
+        <% end %>
       </ul>
+
+      <!-- ページ内検索 -->
+      <form class="">
+        <input type="search" name="" id="">
+        <button type="submit"></button>
+      </form>
     </div>
   </nav>
 </header>

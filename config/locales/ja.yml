@@ -18,3 +18,7 @@ ja:
         comment: コメント
       tag:
         name: 名前
+      user:
+        name: ユーザー名
+        password: パスワード
+        password_confirmation: パスワード(確認)

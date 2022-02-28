@@ -7,7 +7,6 @@ false: nil,false,  true: 1,0,"",true
 <%= "anpan!" if nil %> ->""
 -->
 
-
 <!-- validationって、ここで書けば良くね？ -->
 <%= form_with model: @board, local: true do |f| %>
   <div class="form-group">
@@ -28,14 +27,12 @@ false: nil,false,  true: 1,0,"",true
     <p class="">タグ</p>
     <!--                   相手の要素名_ids 表示する :id value(checkbox), :name label(tag.text)　-->
     <ul class="flex flex-wrap gap-2">
-      <li>
-        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-          <%= tag.label class: "" do %>
-            <%= tag.check_box class: "" %>
-            <%= tag.text %>
-          <% end %>
+      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+        <%= tag.label class: "" do %>
+          <%= tag.check_box class: "" %>
+          <%= tag.text %>
         <% end %>
-      </li>
+      <% end %>
     </ul>
   </div>
 
