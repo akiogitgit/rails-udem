@@ -2,9 +2,11 @@ class SessionsController < ApplicationController
   # ログイン成功時にsessionにuser_idを保存
   def create
     # User のname, passwordが合ってたら
-    user = User.find(name: params[:session][:name]) # userを探す
-
-    if user && user.authenticate(params[:sessoin][:password]) # userがいて、pwdあってる？
+    # binding.pry
+    user = User.find_by(name: params[:session][:name]) # userを探す
+    
+    # authenは has_secure_password を追加すると使えるよ
+    if user && user.authenticate(params[:session][:password])  # userがいて、pwdあってる？
       session[:user_id] = user.id # セッションに保存 user_id はなんでもいい
       redirect_to mypage_path, flash: { notice: "ログインしました" }
     else

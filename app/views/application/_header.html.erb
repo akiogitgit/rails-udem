@@ -9,13 +9,13 @@
         <li><%= header_link_item("タグ",tags_path) %></li>
 
         <!-- ログイン時 -->
-        <%# if session[:user_id].present? %>
+        <% if session[:user_id].present? %>
           <li><%= link_to "マイページ", mypage_path, class: "" %></li>
           <li><%= button_to "ログアウト", logout_path, method: :delete, class: "" %></li>
-        <%# else %>
+        <% else %>
           <li><%= link_to "登録", new_user_path, class: "" %></li>
-          <li><%= link_to "ログイン", new_user_path, class: "" %></li>
-        <%# end %>
+          <li><%= link_to "ログイン", root_path, class: "" %></li>
+        <% end %>
       </ul>
 
         <% if session[:user_id].present? %>
