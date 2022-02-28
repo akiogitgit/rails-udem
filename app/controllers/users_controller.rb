@@ -18,9 +18,9 @@ class UsersController < ApplicationController
   end
 
   def me
-    @users = User.all
     @current_user = User.find(session[:user_id]) if session[:user_id].present?
-    # binding.pry
+    @users = User.all
+    @boards = Board.where(name: @current_user.name)
   end
 
   private

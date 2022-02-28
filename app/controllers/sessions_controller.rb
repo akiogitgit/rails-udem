@@ -11,6 +11,7 @@ class SessionsController < ApplicationController
       redirect_to mypage_path, flash: { notice: "ログインしました" }
     else
       redirect_to root_path, flash: { error: "ログインに失敗しました" }
+      # render "home/index" # flash出せない
     end
   end
 
