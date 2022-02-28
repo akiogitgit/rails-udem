@@ -9,7 +9,7 @@
         <li><%= header_link_item("タグ",tags_path) %></li>
 
         <!-- ログイン時 -->
-        <% if false %>
+        <% if session[:user_id].present? %>
           <li><%= link_to "マイページ", mypage_path, class: "" %></li>
           <li><%= button_to "ログアウト", logout_path, method: :delete, class: "" %></li>
         <% else %>
