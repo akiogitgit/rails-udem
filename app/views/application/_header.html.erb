@@ -1,7 +1,7 @@
 <header class="w-full h-[100px] bg-black text-white flex flex-col justify-center">
   <nav>
     <div class="flex gap-6 w-[95%] mx-auto max-w-[800px]">
-      <%= link_to "BoardApp", boards_path, class: "duration-300 hover:opacity-60" %>
+      <%= link_to "BoardApp", root_path, class: "duration-300 hover:opacity-60" %>
       <ul class="flex gap-4">
         <%= header_link_item("board",boards_path) %>
         <%= header_link_item("作成",new_board_path) %>
