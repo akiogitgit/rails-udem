@@ -3,17 +3,17 @@
 <%= paginator.render do %>
   <nav>
     <ul class="flex justify-center pagination">
-        <%#= first_page_tag unless current_page.first? %>
-      <%= prev_page_tag unless current_page.first? %>
+        <%#= first_page_tag unless current_page.first? %><!-- 最初 -->
+      <div class="edge"><%= prev_page_tag unless current_page.first? %></div>
       <% each_page do |page| %>
         <% if page.left_outer? || page.right_outer? || page.inside_window? %>
           <%= page_tag page %>
-        <% elsif !page.was_truncated? -%>
-          <%= gap_tag %>
+        <%# elsif !page.was_truncated? -%>
+          <%#= gap_tag %><!-- ...のやつ -->
         <% end %>
       <% end %>
-      <%= next_page_tag unless current_page.last? %>
-      <%#= last_page_tag unless current_page.last? %>
+      <div class="edge"><%= next_page_tag unless current_page.last? %></div>
+      <%#= last_page_tag unless current_page.last? %> <!-- 最後 -->
     </ul>
   </nav>
 
@@ -34,6 +34,12 @@
     }
     .pagination>li>a:hover {        
       border-radius: 15px;
+    }
+    .edge {
+      margin: 0 20px;
+    }
+    .edge:hover {
+      text-decoration: underline;
     }
   </style>
 <% end %>

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return unless session[:user_id] # sessioinがないとき、nilで終了
-    @current_user = User.find_by(id: session[:user_id]) # 今ログインしているuserデータ
+    # @current_user = User.find_by(id: session[:user_id])
+    @current_user = User.find(session[:user_id]) # 今ログインしているuserデータ
   end
 end
