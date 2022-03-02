@@ -18,8 +18,8 @@ class UsersController < ApplicationController
   end
 
   def me
-    @current_user = User.find(session[:user_id]) if session[:user_id].present?
-    @users = User.all
+    # @current_user = User.find(session[:user_id]) if session[:user_id].present?
+    # 自分の投稿を全文取得
     @boards = Board.where(name: @current_user.name)
   end
 
