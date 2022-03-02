@@ -4,11 +4,14 @@ class BoardsController < ApplicationController
   before_action :set_board, only: %i[show edit update destroy]
 
   def index
-    # @board = Board.all
+    # @board = Board.all # 最初(全部表示)
     # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
-    # @boards = Tag.find(params[:tag_id]).boards.page(params[:page]) if params[:tag_id] >= "1" # kaminariも適応される
-    @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # kaminariも適応される
-
+    # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
+    if params[:asc].present?
+      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
+    else
+      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
+    end
     # Tagの方から探して、Tagに関連付くboardを取得
     # Tag.find(1).boards.title
   end
