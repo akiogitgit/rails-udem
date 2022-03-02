@@ -3,8 +3,8 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  birthday        :date
 #  name            :string           not null
-#  nickname        :string
 #  password_digest :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -29,4 +29,10 @@ class User < ApplicationRecord
   validates :password,
     # uniqueness: true, これつけると、まさかのエラー
     length: { minimum: 6, maximum: 30} # minimumならpresenceいらん
+  
+  def age
+    now = Time.zone.now # 時間を取得
+    # 現在の日付から誕生日を引いて、年だけを取得
+    (now.strftime("%Y%m%d").to_i - birthday.strftime("%Y%m%d").to_i) / 10000
+  end
 end
