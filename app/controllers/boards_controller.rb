@@ -7,7 +7,7 @@ class BoardsController < ApplicationController
     # @board = Board.all
     # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
     # @boards = Tag.find(params[:tag_id]).boards.page(params[:page]) if params[:tag_id] >= "1" # kaminariも適応される
-    @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # kaminariも適応される
+    @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # kaminariも適応される
 
     # Tagの方から探して、Tagに関連付くboardを取得
     # Tag.find(1).boards.title

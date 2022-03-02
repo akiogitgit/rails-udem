@@ -14,8 +14,8 @@ if Rails.env == "development"
     Board.create(name: "ユーザー#{i}", title: "タイトル#{i}", body: "本文#{i}")
   end
 
-  # タグ作成
-  # (1..10).each do |i|
-  #   Tag.create(name: "タグ#{i}")
-  # end
+  #タグ作成
+  (1..10).each do |i|
+    Tag.create(name: "タグ#{i}")
+  end
 end
