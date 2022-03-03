@@ -24,6 +24,11 @@ RSpec.describe UsersController, type: :controller do
 
   # createアクション
   describe "POST #create" do
+    before do
+      @referer = "http://localhost"
+      @request.env["HTTP_REFERER"] = @referer
+    end
+
     context "正しいユーザー情報が渡ってきた場合" do
       # params で参照できるようにする 全て正しい情報
       let(:params) do
@@ -43,6 +48,32 @@ RSpec.describe UsersController, type: :controller do
       it "マイページにリダイレクトされること" do
         # createが成功したら、mypageに遷移するか
         expect(post :create, params: params).to redirect_to(mypage_path)
+      end
+    end
+
+    context "パラメータに正しいユーザー名、確認パスワードが含まれていない場合" do
+      before do
+        # 謝ったデータ
+        post(:create, params: {
+          user: {
+            name: "ユーザー1",
+            password: "password",
+            password_confirmation: "invalid_password"
+          }
+        })
+      end
+      
+      # ここにリダイレクトするよね？
+      it "リファラーにリダイレクトされること" do
+        expect(response).to redirect_to(@referer)
+      end
+
+      it "ユーザー名のエラーメッセージが含まれていること" do
+        expect(flash[:error_messages]).to include "ユーザー名小文字英数字で入力してください"
+      end
+
+      it "パスワード確認のエラーメッセージが含まれていること" do
+        expect(flash[:error_messages]).to include "パスワード(確認)とパスワードの入力が一致しません"
       end
     end
   end
