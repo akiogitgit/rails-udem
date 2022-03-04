@@ -25,4 +25,8 @@ Rails.application.routes.draw do
   resources :users, only: %i[new create]
   # resources :sessions, only: %i[create destroy] # 名前を変えたいから上に書く
 
+  resources :user_relation, only: %i[create destroy]
+  get "followings", to: "user_relationss#followings"
+  get "followers", to: "user_relationss#followers"
+
 end
