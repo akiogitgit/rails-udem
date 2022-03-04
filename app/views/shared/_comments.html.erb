@@ -13,10 +13,13 @@
             <p><%= comment.created_at.to_s(:datetime_jp) %></p>
           </div>
         </div>
-        <div class=" w-[100px] sm:w-[80px] text-md">
-          <!-- confirmとかは発動しない -->
-          <%= button_to "削除", comment, method: :delete, data: { confirm: "削除してもよろしいですか？", disable_with: 'loading...'}, class: "danger-btn" %>
-        </div>
+
+        <% if @current_user.present? && comment.name == @current_user.name %>
+          <div class="mt-4 w-[100px] sm:w-[80px] text-md">
+            <!-- confirmとかは発動しない -->
+            <%= button_to "削除", comment, method: :delete, data: { confirm: "削除してもよろしいですか？", disable_with: 'loading...'}, class: "danger-btn" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% end %>

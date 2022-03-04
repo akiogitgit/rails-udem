@@ -21,8 +21,8 @@ class UsersController < ApplicationController
   def me
     # ログインしているユーザーのみ表示
     if @current_user.present?
-      # @current_user = User.find(session[:user_id]) if session[:user_id].present?
-        @boards = Board.where(name: @current_user.name)
+        # @current_user = User.find(session[:user_id]) if session[:user_id].present?
+        @boards = Board.where(name: @current_user.name).order(id: "DESC")
     else
       redirect_to root_path, flash: { error: "ログインしてください" }
     end

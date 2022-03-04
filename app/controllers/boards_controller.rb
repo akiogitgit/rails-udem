@@ -62,10 +62,15 @@ class BoardsController < ApplicationController
 
   # 編集edit(get), update(post)
   def edit # @boardを受け取っている
-    # @board = Board.find(params[:id])
-    if flash[:error]
-      @board2 = flash[:board]
-      # binding.pry
+    if @current_user.present? && @board.name == @current_user.name
+      # @board = Board.find(params[:id])
+      if flash[:error]
+        @board2 = flash[:board]
+        # binding.pry
+      end
+    else
+      flash[:error] = "この投稿は編集できません"
+      redirect_to boards_path
     end
   end
 
@@ -82,9 +87,14 @@ class BoardsController < ApplicationController
   end
   
   def destroy
-    @board.destroy # deleteでもいける
-    # flash[:error] = "「#{@board.title}」 の掲示板を削除しました。" # redirectにくっつける書き方もある
-    redirect_to boards_path, flash: { error: "「#{@board.title}」 の掲示板を削除しました。" }
+    if @current_user.present? && @board.name == @current_user.name
+      @board.destroy # deleteでもいける
+      # flash[:error] = "「#{@board.title}」 の掲示板を削除しました。" # redirectにくっつける書き方もある
+      redirect_to boards_path, flash: { error: "「#{@board.title}」 の掲示板を削除しました。" }
+    else
+      flash[:error] = "この投稿は削除できません"
+      redirect_to request.referer
+    end
   end
 
   private # これより下に、普通のは置かない

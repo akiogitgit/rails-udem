@@ -4,7 +4,9 @@
   <!-- 個別board表示 -->
   <div class="flex gap-3 justify-end">
     <%= link_to "一覧",boards_path, class: "secondary-btn" %>
-    <%= link_to "編集", edit_board_path, class: "secondary-btn" %>
+    <% if @current_user.present? && @board.name == @current_user.name %>
+      <%= link_to "編集", edit_board_path, class: "secondary-btn" %>
+    <% end %>
   </div>
   
   <!-- タイトル、タグ、本文 -->
@@ -29,10 +31,12 @@
       <p>更新日：<%= @board.updated_at.to_s(:datetime_jp) %></p>
     </div>
   </section>
-
-  <div class="flex gap-3 justify-end">
-    <%= button_to "投稿を削除", @board, method: :delete, class: "danger-btn mt-4" %>
-  </div>
+  <!-- 投稿が自分のなら消せる -->
+  <% if @current_user.present? && @board.name == @current_user.name %>
+    <div class="flex gap-3 justify-end">
+      <%= button_to "投稿を削除", @board, method: :delete, class: "danger-btn mt-4" %>
+    </div>
+  <% end %>
   
   <!-- コメント -->
   <%= render "shared/comment_form" %> 

@@ -22,10 +22,15 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    @comment.destroy
-    redirect_to boards_path, flash: {
-      error: "コメントを削除しました。"
-    }
+    if @current_user.present? && @comment.name == @current_user.name
+      @comment.destroy
+      redirect_to boards_path, flash: {
+        error: "コメントを削除しました。"
+      }
+    else
+      flash[:error] = "このコメントは削除できません"
+      redirect_to request.referer
+    end
   end
 
   private
