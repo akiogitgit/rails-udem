@@ -63,9 +63,11 @@
             <!--<li><%= board.updated_at.to_s(:datetime_jp) %></li>-->
           </ul>
         <% end %>
-        <div class="hidden sm:block mt-4 text-center w-[100px] text-md">
-          <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %><!--buttonだと行けた-->
-        </div>
+        <% if @current_user.present? && board.name == @current_user.name %>
+          <div class="hidden sm:block mt-4 text-center w-[100px] text-md">
+            <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %><!--buttonだと行けた-->
+          </div>
+        <% end %>
       </div>
     <% end %>
   </section>
