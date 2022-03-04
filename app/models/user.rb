@@ -23,21 +23,28 @@ class User < ApplicationRecord
             foreign_key: "follower_id",  # このカラムを使う
             dependent: :destroy          # ユーザー消したら関連も消えるよ
 
-  # フォローをされた関係
+  # フォロワーの関係
   has_many :passive_relationships,       # 今つけた名前
             class_name: "User_relation", # テーブルを参照
             foreign_key: "followed_id",  # このカラムを使う
             dependent: :destroy          # ユーザー消したら関連も消えるよ
   
 
-  # 一覧画面で使用できるようにする
+  # 一覧画面で使用できるようにする user.followers で使える
   has_many :followings,
             through: :active_relationships,
-            source: :followed
+            source: :followed # followingsはfollowed idの集合体
 
   has_many :followings,
             through: :passive_relationships,
-            source: :follower
+            source: :follower  # followingsはfollower idの集合体
+
+  # 上の記述により使えるメソッド
+  # active_relationships.follower フォロワーを返す
+  # active_relationships.followed　フォローしてるユーザーを返す
+  # user.active_relationships.create(followed_id: user_id)　登録する
+  # user.following.include?(user)
+  # user.following.find(user)
 
   validates :name,
     presence: true,
@@ -51,4 +58,24 @@ class User < ApplicationRecord
   validates :password,
     # uniqueness: true, これつけると、まさかのエラー
     length: { minimum: 6, maximum: 30} # minimumならpresenceいらん
+
+  validates :follower_id, presence: true
+  validates :followed_id, presence: true
+  
+  
+
+  # フォローする
+  def follow(user_id)
+    active_relationships.create(followed: user_id)
+  end
+
+  # フォロー解除
+  def unfollow(user_id)
+    active_relationships.find_by(followed_id: user_id).destroy
+  end
+
+  # 現在のユーザーがフォローしてるか
+  def following?(user)
+    followings.include?(user)
+  end
 end

@@ -2,6 +2,9 @@
 #
 
 Rails.application.routes.draw do
+  get 'user_relations/followings'
+  get 'user_relations/followings'
+  get 'user_relations/followers'
   root "home#index"
 
   # to でpath名を変えられる
