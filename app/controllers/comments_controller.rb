@@ -1,18 +1,25 @@
 class CommentsController < ApplicationController
   def create
-    # こっちはCommentの方のcomment
-    comment = Comment.new(comment_params)
-    if comment.save
-      redirect_to comment.board, flash:{
-        notice: "コメントを投稿しました"
+    # ログインしていないユーザーは、登録してる名前を使えない
+    if User.find_by(name: params[:comment][:name]) && @current_user.nil?
+      redirect_to new_board_path, flash: {
+        comment: comment_params,
+        error: "その名前は使用できません" # そのユーザーは既に存在します
       }
     else
-      # validate error
-      flash[:comment] = comment
-      flash[:error] = comment.errors.full_messages
-      redirect_back fallback_location: comment.board
+      # こっちはCommentの方のcomment
+      comment = Comment.new(comment_params)
+      if comment.save
+        redirect_to comment.board, flash:{
+          notice: "コメントを投稿しました"
+        }
+      else
+        # validate error
+        flash[:comment] = comment
+        flash[:error] = comment.errors.full_messages
+        redirect_back fallback_location: comment.board
+      end
     end
-    # binding.pry
   end
 
   def destroy

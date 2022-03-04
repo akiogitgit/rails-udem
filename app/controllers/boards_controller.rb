@@ -29,10 +29,11 @@ class BoardsController < ApplicationController
   # newで登録したやつを、POSTで受け取って作成 paramsにPOSTで送信されたデータが保存される params[:board]に必要なやつが入っている
   # flashのnoticeというキーに値を格納
   def create
-    if User.find_by(name: params[:board][:name])
+    # ログインしていないユーザーは、登録してる名前を使えない
+    if User.find_by(name: params[:board][:name]) && @current_user.nil?
       redirect_to new_board_path, flash: {
         board: board_params,
-        error: "そのユーザーは既に存在します"
+        error: "その名前は使用できません" # そのユーザーは既に存在します
       }
 
     else
