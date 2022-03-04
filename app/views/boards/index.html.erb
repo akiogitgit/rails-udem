@@ -18,9 +18,24 @@
           }
         %>
       <% end %>
+      <!--
+
+      <p><%= @asc.present? ? @asc : "non"%></p>
       <%= form_tag boards_path, method: :get, class: "p-1 border-2 border-gray-300 rounded" do %>
-        <%= check_box_tag :asc%>
+        <%= check_box_tag "asc" %>
       <% end %>
+
+      <%= form_with url: boards_path  do |f| %>
+        <%= f.check_box :acs, id: :samurai_checkbox,:as => :boolean%>
+      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+        <%= tag.label class: "" do %>
+          <%= tag.check_box class: "" %>
+          <%= tag.text %>
+        <% end %>
+      <% end %>
+        <%= f.submit "Submit" %>
+      <% end %>
+      -->
 
       <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
       <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   def new
     @user = User.new(flash[:user]) # ミスっても消えない
   end
@@ -18,9 +19,14 @@ class UsersController < ApplicationController
   end
 
   def me
-    @current_user = User.find(session[:user_id]) if session[:user_id].present?
-    @users = User.all
-    @boards = Board.where(name: @current_user.name)
+    # ログインしているユーザーのみ表示
+    if @current_user.present?
+      # @current_user = User.find(session[:user_id]) if session[:user_id].present?
+        @boards = Board.where(name: @current_user.name)
+    else
+      redirect_to root_path, flash: { error: "ログインしてください" }
+    end
+
   end
 
   private
@@ -28,6 +34,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :password, :password_confirmation)
   end
-
-
 end

@@ -19,7 +19,11 @@ false: nil,false,  true: 1,0,"",true
   </div>
   <div class="form-group">
     <%= f.label :title, "タイトル" %>
-    <%= f.text_field :title, class: "form-input", required: true, maxlength: "30" %>
+    <% if @current_user.present? %>
+      <%= f.text_field :title, class: "form-input", required: true, maxlength: "30", autofocus: true %>
+    <% else %>
+      <%= f.text_field :title, class: "form-input", required: true, maxlength: "30" %>
+    <% end %>
   </div>
   <div class="form-group">
     <%= f.label :body, "本文" %>

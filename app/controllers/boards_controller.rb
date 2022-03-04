@@ -7,10 +7,14 @@ class BoardsController < ApplicationController
     # @board = Board.all # 最初(全部表示)
     # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
     # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
-    if params[:asc].present?
+
+    # checkboxの値だけを送信できない
+    @asc = "asc" if params[:asc].present?
+    # if params[:asc]
+    if params[:tag_ids].present?
       @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
     else
-      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
+      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
     end
     # Tagの方から探して、Tagに関連付くboardを取得
     # Tag.find(1).boards.title
@@ -25,17 +29,25 @@ class BoardsController < ApplicationController
   # newで登録したやつを、POSTで受け取って作成 paramsにPOSTで送信されたデータが保存される params[:board]に必要なやつが入っている
   # flashのnoticeというキーに値を格納
   def create
-    # Board.create(board_params) # validateやらないなら、createでOK
-    board =  Board.new(board_params)
-    if board.save # validationチェック
-      flash[:notice] = "「#{params[:board][:title]}」の掲示板を作成しました。"
-      redirect_to boards_path
-    else 
-      # flashで、newに入力データを渡す
+    if User.find_by(name: params[:board][:name])
       redirect_to new_board_path, flash: {
-        board: board,
-        error: board.errors.full_messages
+        board: board_params,
+        error: "そのユーザーは既に存在します"
       }
+
+    else
+      # Board.create(board_params) # validateやらないなら、createでOK
+      board =  Board.new(board_params)
+      if board.save # validationチェック
+        flash[:notice] = "「#{params[:board][:title]}」の掲示板を作成しました。"
+        redirect_to boards_path
+      else 
+        # flashで、newに入力データを渡す
+        redirect_to new_board_path, flash: {
+          board: board,
+          error: board.errors.full_messages
+        }
+      end
     end
   end
 
