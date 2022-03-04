@@ -35,7 +35,7 @@ class User < ApplicationRecord
             through: :active_relationships,
             source: :followed # followingsはfollowed idの集合体
 
-  has_many :followings,
+  has_many :followers,
             through: :passive_relationships,
             source: :follower  # followingsはfollower idの集合体
 
