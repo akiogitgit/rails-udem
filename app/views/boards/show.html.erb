@@ -1,7 +1,16 @@
 <!-- 個人ページ boards/1 -->
 <div class="">
 
-  <!-- 個別board表示 -->
+  <div class="flex justify-start">
+    <% if @user.present? %> <!-- この投稿主は、登録してる？ -->
+      <% if @current_user.following?(@user) %> <!-- フォローしてる？ -->
+        <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="flex gap-3 justify-end">
     <%= link_to "一覧",boards_path, class: "secondary-btn" %>
     <% if @current_user.present? && @board.name == @current_user.name %>

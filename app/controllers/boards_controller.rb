@@ -54,10 +54,11 @@ class BoardsController < ApplicationController
 
   # 動的(get) 個別ページ
   def show
+    # @board = Board.find(params[:id])
     # commentをここで使う
+    # @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされるから、空のまま使われる。よくないから消す
     @comment = Comment.new(board_id: @board.id)
-    # @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされるから、空のまま使われる
-    # binding.pry
+    @user = User.find_by(name: @board.name)
   end
 
   # 編集edit(get), update(post)
