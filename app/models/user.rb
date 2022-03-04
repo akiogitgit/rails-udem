@@ -59,10 +59,6 @@ class User < ApplicationRecord
     # uniqueness: true, これつけると、まさかのエラー
     length: { minimum: 6, maximum: 30} # minimumならpresenceいらん
 
-  validates :follower_id, presence: true
-  validates :followed_id, presence: true
-  
-  
 
   # フォローする
   def follow(user_id)
