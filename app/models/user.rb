@@ -15,6 +15,29 @@
 class User < ApplicationRecord
   # password, password_confirmation(確認用)の仮想的なカラムが追加される
   has_secure_password
+  
+  # controllerで使える。 active_relationships.find_by(followed_id: 1, ...)
+  # フォローをする関係
+  has_many :active_relationships,        # 今つけた名前
+            class_name: "User_relation", # テーブルを参照
+            foreign_key: "follower_id",  # このカラムを使う
+            dependent: :destroy          # ユーザー消したら関連も消えるよ
+
+  # フォローをされた関係
+  has_many :passive_relationships,       # 今つけた名前
+            class_name: "User_relation", # テーブルを参照
+            foreign_key: "followed_id",  # このカラムを使う
+            dependent: :destroy          # ユーザー消したら関連も消えるよ
+  
+
+  # 一覧画面で使用できるようにする
+  has_many :followings,
+            through: :active_relationships,
+            source: :followed
+
+  has_many :followings,
+            through: :passive_relationships,
+            source: :follower
 
   validates :name,
     presence: true,
