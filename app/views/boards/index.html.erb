@@ -4,6 +4,8 @@
       掲示板一覧
     </h1>
 
+    <%= @asc if @asc.present? %>
+
     <!-- タグ検索 -->
     <div class="flex items-center gap-4">
       <!-- submitで、表示するパス -->
@@ -18,8 +20,17 @@
           }
         %>
       <% end %>
-      <!--
 
+      <%= form_with scope: :order_by, url: boards_path, local: true, method: :get do |f|  %>
+        <% if @asc == "asc" %>
+          <%= f.check_box :asc %>
+          <%= f.submit "desc"%>
+        <% else %>
+          <%= f.check_box :asc, checked: true %>
+          <%= f.submit "asc"%>
+        <% end %>
+      <% end %>
+      <!--
       <p><%= @asc.present? ? @asc : "non"%></p>
       <%= form_tag boards_path, method: :get, class: "p-1 border-2 border-gray-300 rounded" do %>
         <%= check_box_tag "asc" %>

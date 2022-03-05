@@ -8,9 +8,15 @@ class BoardsController < ApplicationController
     # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
     # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
 
-    # checkboxの値だけを送信できない
-    @asc = "asc" if params[:asc].present?
-    # if params[:asc]
+    # checkboxの値
+    if params[:order_by][:asc].present?
+      if params[:order_by][:asc] == "1"
+        # binding.pry
+        @asc = "asc"
+      else
+        @asc = "desc"
+      end
+    end
     if params[:tag_ids].present?
       @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
     else
@@ -25,7 +31,7 @@ class BoardsController < ApplicationController
     # @board = Board.new
     @board = Board.new(flash[:board]) # createに失敗した時、入力データはそのままにする
   end
-  
+
   # newで登録したやつを、POSTで受け取って作成 paramsにPOSTで送信されたデータが保存される params[:board]に必要なやつが入っている
   # flashのnoticeというキーに値を格納
   def create
@@ -68,6 +74,7 @@ class BoardsController < ApplicationController
   def edit # @boardを受け取っている
     if @current_user.present? && @board.name == @current_user.name
       # @board = Board.find(params[:id])
+      # もしvalidateに引っかかったら、内容を受け渡す
       if flash[:error]
         @board2 = flash[:board]
         # binding.pry
