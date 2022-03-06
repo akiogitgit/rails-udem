@@ -5,21 +5,21 @@
         <!--<li class="my-2"><%#= user.name %></li>-->
       <%# end %>
       <div class="text-xl">
-        <%= @current_user.name %>
+        <%= @user.name %>
       </div>
     </ul>
   <div class="mt-10">
-    <p>userid <%= session[:user_id] %></p>
+    <p>userid <%= @user.id %></p>
   </div>
   <div>
     <%#= link_to "フォロー一覧", followings_path %>
     <%#= link_to "フォロワー一覧", followers_path %>
     
     <%= link_to followings_path do %>
-      <td>フォロー数: <%= @current_user.followings.count %></td>
+      <td>フォロー数: <%= @user.followings.count %></td>
     <% end %>
     <%= link_to followers_path do %>
-      <td>フォロワー数: <%= @current_user.followers.count %></td>
+      <td>フォロワー数: <%= @user.followers.count %></td>
     <% end %>
   </div>
 
@@ -40,5 +40,7 @@
         </div>
       </div>
     <% end %>
+  <% else %>
+    <div class="my-4">投稿はありません</div>
   <% end %>
 </div>

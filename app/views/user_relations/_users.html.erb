@@ -1,24 +1,17 @@
 <%# if @users.exists? %>
 <!-- フォロー一覧、フォロワー一覧 -->
 <% if @users.present? %>
-  <% @users.each do |user| %>
-    <table>
-      <thead>
-        <tr>
-          <th>name</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= user.name %></td>
-          <td>フォロー数: <%= user.followings.count %></td>
-          <td>フォロワー数: <%= user.followers.count %></td>
-        </tr>
-      </tbody>
-    </table>
-  <% end %>
+  <div class="flex flex-wrap gap-4">
+    <% @users.each do |user| %>
+      <ul class="p-4 border-2 border-gray-300 rounded w-[200px]">
+        <%= link_to user do %>
+          <li><%= user.name %></li>
+          <li>フォロー数: <%= user.followings.count %></li>
+          <li>フォロワー数: <%= user.followers.count %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 <% else %>
   <p>ユーザーはいません</p>
 <% end %>

@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     # binding.pry
     user = User.find_by(name: params[:session][:name]) # userを探す
     
-    # authenは has_secure_password を追加すると使えるよ
+    # authenは has_secure_password を追加すると使えるメソッド
     if user && user.authenticate(params[:session][:password])  # userがいて、pwdあってる？
       session[:user_id] = user.id # セッションに保存 user_id はなんでもいい
       redirect_to mypage_path, flash: { notice: "#{params[:session][:name]}さんようこそ" }

@@ -2,7 +2,7 @@
 #
 
 Rails.application.routes.draw do
-  root "home#index"
+  root "home#index" # login は home#indexでしてる
 
   # to でpath名を変えられる
   post "login", to: "sessions#create" # 当然post,deleteとかも使える
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :boards # これで上の全てに対応
   resources :comments, only: %i[create destroy] # onlyでこれだけ使う
   resources :tags, only: %i[index create destroy]
-  resources :users, only: %i[new create]
+  resources :users, only: %i[index show new create]
   # resources :sessions, only: %i[create destroy] # 名前を変えたいから上に書く
 
   resources :user_relations, only: %i[create destroy]

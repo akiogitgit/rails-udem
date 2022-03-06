@@ -1,4 +1,13 @@
 class UsersController < ApplicationController
+
+  def index
+    @users = User.all
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @boards = Board.where(name: @user.name).order(id: "DESC")
+  end
   
   def new
     @user = User.new(flash[:user]) # ミスっても消えない
