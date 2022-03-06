@@ -2,8 +2,9 @@ class UserRelationsController < ApplicationController
 
   def create
     # @current_user.follow(params[:user_id])
-    follow = UserRelation.new(follow_params)
-    if follow.save
+    # follow = UserRelation.new(follow_params)
+    # if follow.save
+    if @current_user.follow(params[:user_id])
       flash[:notice] = "フォローしました"
       redirect_to request.referer
     else
@@ -19,8 +20,10 @@ class UserRelationsController < ApplicationController
   # フォロー一覧
   def followings
     # 表示しているユーザーの
-    user = User.find(params[:user_id])
-    @users = user.followings
+    # 今ログインしているユーザーのフォロー一覧
+    # user = User.find(params[:user_id])
+    user = User.find(@current_user.id)
+    @users = user.followings if user.followings.present?
   end
 
   # フォロワー一覧

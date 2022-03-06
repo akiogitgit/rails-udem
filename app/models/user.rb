@@ -19,13 +19,13 @@ class User < ApplicationRecord
   # controllerで使える。 active_relationships.find_by(followed_id: 1, ...)
   # フォローをする関係
   has_many :active_relationships,        # 今つけた名前
-            class_name: "User_relation", # テーブルを参照
+            class_name: "UserRelation", # テーブルを参照
             foreign_key: "follower_id",  # このカラムを使う
             dependent: :destroy          # ユーザー消したら関連も消えるよ
 
   # フォロワーの関係
   has_many :passive_relationships,       # 今つけた名前
-            class_name: "User_relation", # テーブルを参照
+            class_name: "UserRelation", # テーブルを参照
             foreign_key: "followed_id",  # このカラムを使う
             dependent: :destroy          # ユーザー消したら関連も消えるよ
   
@@ -62,7 +62,7 @@ class User < ApplicationRecord
 
   # フォローする
   def follow(user_id)
-    active_relationships.create(followed: user_id)
+    active_relationships.create(followed_id: user_id)
   end
 
   # フォロー解除

@@ -8,20 +8,24 @@ class BoardsController < ApplicationController
     # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
     # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
 
-    # checkboxの値
-    if params[:order_by][:asc].present?
+    # checkboxで昇順、降順変更
+    if params[:order_by].present?# && params[:order_by][:asc].present?
       if params[:order_by][:asc] == "1"
         # binding.pry
+        @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
         @asc = "asc"
+        flash[:asc] = 1
       else
+        @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
         @asc = "desc"
+        flash[:asc] = nil
       end
-    end
-    if params[:tag_ids].present?
-      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
     else
       @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
+
     end
+    #   @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
+      # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
     # Tagの方から探して、Tagに関連付くboardを取得
     # Tag.find(1).boards.title
   end
