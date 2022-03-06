@@ -14,6 +14,9 @@
   <div>
     <%= link_to "フォロー一覧", followings_path %>
     <%= link_to "フォロワー一覧", followers_path %>
+    
+    <td>フォロー数: <%= @current_user.followings.count %></td>
+    <td>フォロワー数: <%= @current_user.followers.count %></td>
   </div>
 
   <% if @boards.present? %>

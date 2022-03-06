@@ -1,11 +1,17 @@
 class UserRelationsController < ApplicationController
 
+  # boardからフォローするなら、board.id 160で、board = Board.find(params[:id])
+  # それでboardから名前出してフォローする
+
+  # ユーザー個別ページからフォローする場合もある？
   def create
-    # @current_user.follow(params[:user_id])
-    # follow = UserRelation.new(follow_params)
-    # if follow.save
-    if @current_user.follow(params[:user_id])
-      flash[:notice] = "フォローしました"
+    # params[:id]が切れて使えない flashか？
+    board = Board.find(flash[:board_id]) # board.idからboard情報
+    # board = Board.find(params[:id])
+    user = User.find_by(name: board.name) # board.nameからuser情報
+    if @current_user.follow(user.id)
+      flash[:notice] = "フォローしました#{params[:id]}"
+      # flash[:notice] = "#{params[:id]}"
       redirect_to request.referer
     else
       flash[:error] = "フォローに失敗しました"
@@ -25,14 +31,14 @@ class UserRelationsController < ApplicationController
     # 今ログインしているユーザーのフォロー一覧
     # user = User.find(params[:user_id])
     user = User.find(@current_user.id)
-    @users = user.followings if user.followings.present?
+    @users = user.followings
   end
 
   # フォロワー一覧
   def followers
     # user = User.find(params[:user_id])
     user = User.find(@current_user.id)
-    @users = user.followers if user.followers.present?
+    @users = user.followers
   end
 
   private

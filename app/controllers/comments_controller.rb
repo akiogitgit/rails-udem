@@ -24,9 +24,8 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @current_user.present? && @comment.name == @current_user.name
       @comment.destroy
-      redirect_to boards_path, flash: {
-        error: "コメントを削除しました。"
-      }
+      redirect_to request.referer
+      flash[:error] = "コメントを削除しました。"
     else
       flash[:error] = "このコメントは削除できません"
       redirect_to request.referer

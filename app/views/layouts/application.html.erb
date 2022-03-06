@@ -34,6 +34,8 @@
       <main class="mx-auto my-10 w-[95%] max-w-[800px]">
         <%= render "shared/flash_message" %>
         <%= yield %>
+        <!-- 下にでるやつ -->
+        <%= debug(params) if Rails.env.development? %>
       </main>
     </div>
   </body>
