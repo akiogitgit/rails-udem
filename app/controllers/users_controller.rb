@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @boards = Board.where(name: @user.name).order(id: "DESC")
+    flash[:user] = @user
   end
   
   def new

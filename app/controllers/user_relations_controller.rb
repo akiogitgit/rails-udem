@@ -23,21 +23,29 @@ class UserRelationsController < ApplicationController
     redirect_to request.referer
   end
 
-  
-  # 自分のフォローか、全員のか
+  # folllowings, followersはparams[:id]使えない。session,flash使う？
+  # sessionだと、消すタイミング難しそう。。。
   # フォロー一覧
   def followings
-    # 表示しているユーザーの
-    # 今ログインしているユーザーのフォロー一覧
-    # user = User.find(params[:user_id])
-    user = User.find(@current_user.id)
+    # if params[:id].present?
+    if flash[:user].present?
+      # user = User.find(params[:id]) # 表示しているユーザーの
+      user = User.find(flash[:user]["id"])
+    else
+      user = User.find(@current_user.id) # loginユーザーのフォロー一覧
+    end
     @users = user.followings
   end
 
   # フォロワー一覧
   def followers
-    # user = User.find(params[:user_id])
-    user = User.find(@current_user.id)
+    # if params[:id].present?
+    if flash[:user].present?
+      # user = User.find(params[:id])
+      user = User.find(flash[:user]["id"])
+    else
+      user = User.find(@current_user.id) # loginユーザーのフォロー一覧
+    end
     @users = user.followers
   end
 
