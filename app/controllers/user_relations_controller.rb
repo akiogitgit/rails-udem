@@ -28,25 +28,25 @@ class UserRelationsController < ApplicationController
   # フォロー一覧
   def followings
     # if params[:id].present?
-    if flash[:user].present?
+    if session[:user].present?
       # user = User.find(params[:id]) # 表示しているユーザーの
-      user = User.find(flash[:user]["id"])
+      @user = User.find(session[:user]["id"])
     else
-      user = User.find(@current_user.id) # loginユーザーのフォロー一覧
+      @user = User.find(@current_user.id) # loginユーザーのフォロー一覧
     end
-    @users = user.followings
+    @users = @user.followings
   end
 
   # フォロワー一覧
   def followers
     # if params[:id].present?
-    if flash[:user].present?
+    if session[:user].present?
       # user = User.find(params[:id])
-      user = User.find(flash[:user]["id"])
+      @user = User.find(session[:user]["id"])
     else
-      user = User.find(@current_user.id) # loginユーザーのフォロー一覧
+      @user = User.find(@current_user.id) # loginユーザーのフォロー一覧
     end
-    @users = user.followers
+    @users = @user.followers
   end
 
   private

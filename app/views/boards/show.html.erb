@@ -5,25 +5,11 @@
     <% if @user.present? && @user != @current_user %> <%# この投稿主は、登録してる？ %>
       <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
         <!-- 下のpath全然違うよ -->
-        <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete %>
+        <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-70" %>
       <% else %>
-        <%= button_to "フォローする", user_relations_path(@user.id), method: :post %>
+        <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
       <% end %>
-
-      <%#= form_with url: user_relation_index_path, local: true, method: :post do |f| %>
-      <%#= form_with model: @follow, local: true, method: :post do |f| %>
-        <%#= f.hidden_field :follower_id, value: @current_user.id %>
-        <%#= f.hidden_field :followed_id, value: @user.id %>
-        <%#= f.submit "Submit" %>
-      <%# end %>
-      <%#= form_with model: @current_user.active_relationships.build, local: true do |f| %>
-        <%#= hidden_field_tag :followed_id, @user.id %>
-        <%#= f.hidden_field :user_id, @user.id %>
-        <%#= f.submit "Follow", class: "btn btn-primary" %>
-      <%# end %>
-      <%#= button_to "フォローする", user_relation_index_path(@user.id), method: :post %>
     <% end %>
-
   </div>
 
   <div class="flex gap-3 justify-end">

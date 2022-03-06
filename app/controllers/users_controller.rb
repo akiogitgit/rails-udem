@@ -5,9 +5,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    session[:user] = nil
     @user = User.find(params[:id])
     @boards = Board.where(name: @user.name).order(id: "DESC")
-    flash[:user] = @user
+    flash[:board_id] = @board.id # user_relationのフォローで使う
+    session[:user] = @user
   end
   
   def new

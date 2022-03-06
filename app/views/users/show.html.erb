@@ -1,26 +1,25 @@
 <div>
-  <h1 class="font-bold">MyPage</h1>
-    <ul>
-      <%# @users.each do |user| %>
-        <!--<li class="my-2"><%#= user.name %></li>-->
-      <%# end %>
-      <div class="text-xl">
-        <%= @user.name %>
-      </div>
-    </ul>
-  <div class="mt-10">
-    <p>userid <%= @user.id %></p>
-  </div>
-  <div>
-    <%#= link_to "フォロー一覧", followings_path %>
-    <%#= link_to "フォロワー一覧", followers_path %>
+  <div class="flex gap-10 mb-10">
+    <h1 class="font-bold"><%= @user.name %></h1>
+    <div class="flex gap-3">
+      <%= link_to followings_path do %>
+        <p><span class="mr-1 font-bold text-2xl"><%= @user.followings.count %></span>フォロー中</p>
+      <% end %>
+      <%= link_to followers_path do %>
+        <p><span class="mr-1 font-bold text-2xl"><%= @user.followers.count %></span>フォロワー</p>
+      <% end %>
+    </div>
     
-    <%= link_to followings_path do %>
-      <td>フォロー数: <%= @user.followings.count %></td>
+  <div class="flex justify-start">
+    <% if @user.present? && @user != @current_user %> <%# この投稿主は、登録してる？ %>
+      <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
+        <!-- 下のpath全然違うよ -->
+        <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-70" %>
+      <% else %>
+        <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
+      <% end %>
     <% end %>
-    <%= link_to followers_path do %>
-      <td>フォロワー数: <%= @user.followers.count %></td>
-    <% end %>
+  </div>
   </div>
 
   <% if @boards.present? %>
