@@ -16,7 +16,9 @@ class UserRelationsController < ApplicationController
     @current_user.unfollow(params[:user_id])
     redirect_to request.referer
   end
+
   
+  # 自分のフォローか、全員のか
   # フォロー一覧
   def followings
     # 表示しているユーザーの
@@ -28,8 +30,9 @@ class UserRelationsController < ApplicationController
 
   # フォロワー一覧
   def followers
-    user = User.find(params[:user_id])
-    @users = user.followers
+    # user = User.find(params[:user_id])
+    user = User.find(@current_user.id)
+    @users = user.followers if user.followers.present?
   end
 
   private
