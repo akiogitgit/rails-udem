@@ -8,25 +8,63 @@ class BoardsController < ApplicationController
     # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
     # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
 
-    # checkboxで昇順、降順変更
+    # checkboxで昇順、降順変更。ascは session。tagは flash, sessionどっち？
     # sessionに値がなかったら、0を入れる
+    # if session[:order_by].nil?
+    #   session[:order_by] = "0"
+    # end
+    # # sessionとparamsが違ったらsessionを更新する
+    # if params[:order_by].present?
+    #   if session[:order_by] != params[:order_by][:asc]
+    #     session[:order_by] = params[:order_by][:asc]
+    #   end
+    # end
+    # # paramsない時sessionのでやる
+    # if session[:order_by] == "1"
+    #   # binding.pry
+    #   @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "ASC") : Board.page(params[:page]).order(id: "ASC")  # タグ検索追加(タグで絞りこむで全表示)
+    #   @asc = "1"
+    #   flash[:asc] = 1
+    # else
+    #   @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
+    #   @asc = "0"
+    #   flash[:asc] = nil
+    # end
+
+    # tagは初期値nil,paramsが来たらsessionを変更,
+    # tag_id="" (タグで絞り込む)ならsession = nil
+    # asc変更したら、tag_idが来なくなる
     if session[:order_by].nil?
       session[:order_by] = "0"
     end
-    # sessionとparamsが違ったらsessionを更新する
+    # タグで絞り込むで全表示。 昇順変えると、タグで絞るになる。変更しないと送信できない
+    # tag_id.nil?
+    # if params[:tag_id].nil? && params[:order_by].nil? # 失敗
+    #   session[:tag_id] = nil
+    # end
+    if params[:all].present?
+      session[:tag_id] = nil
+    end
+    # sessionとparamsが違ったらsessionを更新
     if params[:order_by].present?
       if session[:order_by] != params[:order_by][:asc]
         session[:order_by] = params[:order_by][:asc]
       end
     end
+    # paramsが来て、sessionと違うならsessionを更新
+    if params[:tag_id].present?
+      if session[:tag_id] != params[:tag_id]
+        session[:tag_id] = params[:tag_id]
+      end
+    end
     # paramsない時sessionのでやる
     if session[:order_by] == "1"
       # binding.pry
-      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "ASC") : Board.page(params[:page]).order(id: "ASC")  # タグ検索追加(タグで絞りこむで全表示)
+      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order(id: "ASC") : Board.page(params[:page]).order(id: "ASC")  # タグ検索追加(タグで絞りこむで全表示)
       @asc = "1"
       flash[:asc] = 1
     else
-      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
+      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
       @asc = "0"
       flash[:asc] = nil
     end

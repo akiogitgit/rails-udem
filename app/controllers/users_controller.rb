@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  # user個別ページ
   def show
     session[:user] = nil
     @user = User.find(params[:id])

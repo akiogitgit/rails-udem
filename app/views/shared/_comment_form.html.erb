@@ -7,7 +7,7 @@
   <section class="mt-10">
     <p class="mb-4 font-bold">コメント記入</p>
     <%= form_with model: @comment, local: true do |f| %>
-      <%= f.hidden_field :board_id %> <!-- 表示しないで送信するデータ -->
+      <%= f.hidden_field :board_id %> <!-- なぜこれで送れる？表示しないで送信するデータ -->
       <div class="form-group">
         <% if @current_user %>
           <%= f.hidden_field :name, value: @current_user.name %>
