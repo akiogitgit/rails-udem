@@ -9,25 +9,27 @@ class BoardsController < ApplicationController
     # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
 
     # checkboxで昇順、降順変更
-    if params[:order_by].present?# && params[:order_by][:asc].present?
-      if params[:order_by][:asc] == "1"
-        # binding.pry
-        @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
-        @asc = "asc"
-        flash[:asc] = 1
-      else
-        @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
-        @asc = "desc"
-        flash[:asc] = nil
+    # sessionに値がなかったら、0を入れる
+    if session[:order_by].nil?
+      session[:order_by] = "0"
+    end
+    # sessionとparamsが違ったらsessionを更新する
+    if params[:order_by].present?
+      if session[:order_by] != params[:order_by][:asc]
+        session[:order_by] = params[:order_by][:asc]
       end
+    end
+    # paramsない時sessionのでやる
+    if session[:order_by] == "1"
+      # binding.pry
+      @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "ASC") : Board.page(params[:page]).order(id: "ASC")  # タグ検索追加(タグで絞りこむで全表示)
+      @asc = "1"
+      flash[:asc] = 1
     else
       @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
-
+      @asc = "0"
+      flash[:asc] = nil
     end
-    #   @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]) : Board.page(params[:page])  # タグ検索追加(タグで絞りこむで全表示)
-      # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
-    # Tagの方から探して、Tagに関連付くboardを取得
-    # Tag.find(1).boards.title
   end
 
   # 新規作成 new(get), create(post)

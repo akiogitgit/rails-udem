@@ -31,6 +31,7 @@ class UsersController < ApplicationController
   end
 
   def me
+    session[:user] = nil
     # ログインしているユーザーのみ表示
     if @current_user.present?
         # @current_user = User.find(session[:user_id]) if session[:user_id].present?
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
     else
       redirect_to root_path, flash: { error: "ログインしてください" }
     end
-
+    session[:user] = @user # ユーザーのフォロワー、フォロー一覧で使う
   end
 
   private

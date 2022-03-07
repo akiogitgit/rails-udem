@@ -13,38 +13,24 @@
           options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
           {
             prompt: "タグで絞り込む", # 何も選択していない時表示
-            class: "",
+            class: "cursor-pointer",
             onchange: "submit(this.form);" # 変更される度に実行(ここではsubmit)
           }
         %>
       <% end %>
 
+      <!-- boardsを昇順、降順で表示,  boards/index にparams[:order_by]として渡す -->
       <%= form_with scope: :order_by, url: boards_path, local: true, method: :get do |f|  %>
-        <% if @asc == "asc" %>
+        <% if @asc == "1" %>
           <%= f.check_box :asc, class: "hidden" %>
-          <%= f.submit "降順", class: "p-1 border-2 border-gray-300 rounded" %>
+          <div class="cursor-pointer">
+          <%= f.submit "降順", class: "p-1 border-2 border-gray-300 rounded cursor-pointer" %>
+          </div>
         <% else %>
           <%= f.check_box :asc, checked: true, class: "hidden" %>
-          <%= f.submit "昇順", class: "p-1 border-2 border-gray-300 rounded" %>
+          <%= f.submit "昇順", class: "p-1 border-2 border-gray-300 rounded cursor-pointer" %>
         <% end %>
       <% end %>
-      <!--
-      <p><%= @asc.present? ? @asc : "non"%></p>
-      <%= form_tag boards_path, method: :get, class: "p-1 border-2 border-gray-300 rounded" do %>
-        <%= check_box_tag "asc" %>
-      <% end %>
-
-      <%= form_with url: boards_path  do |f| %>
-        <%= f.check_box :acs, id: :samurai_checkbox,:as => :boolean%>
-      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-        <%= tag.label class: "" do %>
-          <%= tag.check_box class: "" %>
-          <%= tag.text %>
-        <% end %>
-      <% end %>
-        <%= f.submit "Submit" %>
-      <% end %>
-      -->
 
       <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
       <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>

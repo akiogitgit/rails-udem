@@ -1,4 +1,5 @@
 <div>
+  <!-- ログインしているユーザーの名前、フォロー人数 -->
   <div class="flex gap-10 mb-10">
     <h1 class="font-bold"><%= @current_user.name %></h1>
     <div class="flex gap-3">
@@ -10,15 +11,8 @@
       <% end %>
     </div>
   </div>
-  <div>
-    <%= link_to followings_path do %>
-      <td>フォロー数: <%= @current_user.followings.count %></td>
-    <% end %>
-    <%= link_to followers_path do %>
-      <td>フォロワー数: <%= @current_user.followers.count %></td>
-    <% end %>
-  </div>
 
+  <!-- 自分の投稿 -->
   <% if @boards.present? %>
     <% @boards.each do |board|  %>
       <div class="flex text-[16px]">

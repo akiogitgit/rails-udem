@@ -1,25 +1,32 @@
-<!-- 個人ページ boards/1 -->
-<div class="">
+<!-- board個別ページ -->
+<div>
+  <% if @user.present? && @user != @current_user %> <!-- 上手くできないかな。。。 -->
+    <div class="flex justify-between">
+  <% end %>
+    <!-- ユーザーへのリンク、フォローボタン -->
+    <% if @user.present? && @user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
+      <div class="flex justify-start">
+        <%= link_to @user.name, @user, class: "mr-2 text-2xl font-bold flex items-center" %>
+        <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
+          <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-70" %>
+        <% else %>
+          <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
+        <% end %>
+      </div>
+    <% end %>
 
-  <div class="flex justify-start">
-    <% if @user.present? && @user != @current_user %> <%# この投稿主は、登録してる？ %>
-      <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
-        <!-- 下のpath全然違うよ -->
-        <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-70" %>
-      <% else %>
-        <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
+    <div class="flex gap-3 justify-end">
+      <%= link_to "一覧",boards_path, class: "secondary-btn" %>
+      <% if @current_user.present? && @board.name == @current_user.name %>
+        <%= link_to "編集", edit_board_path, class: "secondary-btn" %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="flex gap-3 justify-end">
-    <%= link_to "一覧",boards_path, class: "secondary-btn" %>
-    <% if @current_user.present? && @board.name == @current_user.name %>
-      <%= link_to "編集", edit_board_path, class: "secondary-btn" %>
-    <% end %>
-  </div>
+  <% if @user.present? && @user != @current_user %>
+    </div>
+  <% end %>
   
-  <!-- タイトル、タグ、本文 -->
+  <!-- boardのタイトル、タグ、本文 -->
   <section>
     <div class="mt-10 font-bold w-90 border-2 border-gray-300">
       <div class="p-4 bg-gray-100 text-3xl">
@@ -41,6 +48,7 @@
       <p>更新日：<%= @board.updated_at.to_s(:datetime_jp) %></p>
     </div>
   </section>
+
   <!-- 投稿が自分のなら消せる -->
   <% if @current_user.present? && @board.name == @current_user.name %>
     <div class="flex gap-3 justify-end">
@@ -54,7 +62,7 @@
 </div>
 
 
-
+<!-- delete 失敗の残骸 -->
 <%#= link_to "削除", boards_path(@board), method: :delete, class: "secondary-btn" %>
 <%#= link_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
 <%#= link_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
