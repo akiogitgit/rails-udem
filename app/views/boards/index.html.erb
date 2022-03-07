@@ -5,10 +5,8 @@
     </h1>
 
     <div class="flex items-center gap-4">
-      <%= form_with scope: :all, url:boards_path, local: true, method: :get do |f| %>
-        <%= f.hidden_field :all, value: 1 %>
-        <%= f.submit "全表示" %>
-      <% end %>
+      
+
       <!-- タグ検索  送信するpath -->
       <%= form_tag boards_path, method: :get, class: "p-1 border-2 border-gray-300 rounded" do %>
         <!-- select option。第一にselectのname属性。第二にselectの選択肢を複数作成 Tag.allが選択肢、:idがvalueにセット、:nameは表示名、次が何を選択するか -->
@@ -35,12 +33,18 @@
         <% end %>
       <% end %>
 
+      <!-- 押すと全board表示 -->
+      <%= form_with scope: :all, url:boards_path, local: true, method: :get do |f| %>
+        <%= f.hidden_field :all, value: 1 %>
+        <%= f.submit "全表示", class: "p-1 border-2 border-gray-300 rounded cursor-pointer" %>
+      <% end %>
+
       <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
       <%= link_to "新規作成", new_board_path, class: "secondary-btn"%>
     </div>
   </section>
 
-  <section class="sm:w-[88%]">
+  <section class="sm:w-[89.9%] md:w-[91.6%] lg:w-[92.5%]">
     <ul class="p-2 grid grid-cols-4 text-center bg-black text-white text-sm sm:text-xl font-bold">
       <li>ID</li>
       <li>タイトル</li>
@@ -51,27 +55,8 @@
   </section>
 
   <section>
-    <% @boards.each do |board|  %>
-      <div class="flex text-[16px]">
-        <div class="sm:w-[88%] max-w-[800px]">
-          <%= link_to board do %>
-            <ul class="p-2 flex text-center font-bold hover:bg-gray-300 border-b-2">
-              <li class="w-[22.5vw]"><%= board.id %></li>
-              <li class="w-[22.5vw]"><%= board.title %></li>
-              <li class="w-[22.5vw]"><%= board.name %></li>
-              <li class="w-[22.5vw]"><%= board.created_at.to_s(:datetime_jp) %></li>
-              <!--<li><%= board.updated_at.to_s(:datetime_jp) %></li>-->
-            </ul>
-          <% end %>
-        </div>
-        <!-- 自分の投稿のみ消せる -->
-        <% if @current_user.present? && board.name == @current_user.name %>
-          <div class="hidden sm:block mt-4 ml-2 text-md">
-            <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <!-- boards一覧 -->
+    <%= render "shared/boards" %>
   </section>
 
   <!-- kaminariのページネーション -->

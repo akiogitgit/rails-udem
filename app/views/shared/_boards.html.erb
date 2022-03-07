@@ -1,0 +1,21 @@
+<% @boards.each do |board|  %>
+  <div class="flex text-[16px]">
+    <div class="sm:w-[89.9%] md:w-[91.6%] lg:w-[92.5%] max-w-[800px]">
+      <%= link_to board do %>
+        <ul class="p-2 grid grid-cols-4 text-center font-bold hover:bg-gray-300 border-b-2">
+          <li class=""><%= board.id %></li>
+          <li class=""><%= board.title %></li>
+          <li class=""><%= board.name %></li>
+          <li class=""><%= board.created_at.to_s(:datetime_jp) %></li>
+          <!--<li><%= board.updated_at.to_s(:datetime_jp) %></li>-->
+        </ul>
+      <% end %>
+    </div>
+    <!-- 自分の投稿のみ消せる -->
+    <% if @current_user.present? && board.name == @current_user.name %>
+      <div class="hidden sm:block mt-4 text-md">
+        <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
