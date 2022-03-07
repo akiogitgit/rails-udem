@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     session[:user] = nil
     @user = User.find(params[:id])
     @boards = Board.where(name: @user.name).order(id: "DESC")
-    flash[:follow_user_name] = @user.name # user_relationのフォローで使う
-    session[:user] = @user # ユーザーのフォロワー、フォロー一覧で使う
+    # flash[:follow_user_name] = @user.name # user_relationのフォローで使う
+    session[:user] = @user # ユーザーのフォロー、フォロワー一覧で使う
   end
   
   def new

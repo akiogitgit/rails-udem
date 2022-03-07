@@ -3,10 +3,14 @@ class UserRelationsController < ApplicationController
   # boardからフォローするなら、board.id 160で、board = Board.find(params[:id])
   # それでboardから名前出してフォローする
 
-  # ユーザー個別ページからフォローする場合もある？
+  # フォローする場合
+  # users/show, users/index, boards/show -> params[:id] = board.idだからflash
   def create
-    # params[:id]が使えない flashか？
-    user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
+    if flash[:follow_user_name] # boardsから押した時
+      user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
+    else
+      user = User.find(params[:format]) # users/index show から
+    end
     if @current_user.follow(user.id)
       flash[:notice] = "#{user.name}さんをフォローしました"
       redirect_to request.referer
@@ -16,11 +20,18 @@ class UserRelationsController < ApplicationController
   end
 
   def destroy
-    # @current_user.unfollow(params[:user_id])
-    user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
-    @current_user.unfollow(user.id) # model/user
-    flash[:error] = "#{user.name}さんのフォローを解除しました"
-    redirect_to request.referer
+    if flash[:follow_user_name] # boardsから押した時
+      user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
+    else
+      user = User.find(params[:id]) # users/index show から
+    end
+    
+    if @current_user.unfollow(user.id) # model/user
+      flash[:error] = "#{user.name}さんのフォローを解除しました"
+      redirect_to request.referer
+    else
+      flash[:error] = "フォロー解除に失敗しました"
+    end
   end
 
   # folllowings, followersはparams[:id]使えない。session,flash使う？
