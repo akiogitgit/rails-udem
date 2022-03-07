@@ -8,8 +8,8 @@ class UsersController < ApplicationController
     session[:user] = nil
     @user = User.find(params[:id])
     @boards = Board.where(name: @user.name).order(id: "DESC")
-    flash[:board_id] = @board.id # user_relationのフォローで使う
-    session[:user] = @user
+    flash[:follow_user_name] = @user.name # user_relationのフォローで使う
+    session[:user] = @user # ユーザーのフォロワー、フォロー一覧で使う
   end
   
   def new

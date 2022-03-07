@@ -69,7 +69,7 @@ class BoardsController < ApplicationController
     # @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされるから、空のまま使われる。よくないから消す
     @comment = Comment.new(board_id: @board.id)
     @user = User.find_by(name: @board.name)
-    flash[:board_id] = @board.id # user_relationのフォローで使う
+    flash[:follow_user_name] = @board.name
     # これ違う
     # if @user.present?
     #   @follow = UserRelation.new(follower_id: @current_user.id)

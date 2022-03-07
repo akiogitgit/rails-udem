@@ -5,13 +5,10 @@ class UserRelationsController < ApplicationController
 
   # ユーザー個別ページからフォローする場合もある？
   def create
-    # params[:id]が切れて使えない flashか？
-    board = Board.find(flash[:board_id]) # board.idからboard情報
-    # board = Board.find(params[:id])
-    user = User.find_by(name: board.name) # board.nameからuser情報
+    # params[:id]が使えない flashか？
+    user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
     if @current_user.follow(user.id)
-      flash[:notice] = "フォローしました#{params[:id]}"
-      # flash[:notice] = "#{params[:id]}"
+      flash[:notice] = "#{user.name}さんをフォローしました"
       redirect_to request.referer
     else
       flash[:error] = "フォローに失敗しました"
@@ -19,7 +16,10 @@ class UserRelationsController < ApplicationController
   end
 
   def destroy
-    @current_user.unfollow(params[:user_id])
+    # @current_user.unfollow(params[:user_id])
+    user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
+    @current_user.unfollow(user.id) # model/user
+    flash[:error] = "#{user.name}さんのフォローを解除しました"
     redirect_to request.referer
   end
 
