@@ -1,10 +1,10 @@
 <!-- board個別ページ -->
 <div>
-  <% if @user.present? && @user != @current_user %> <!-- 上手くできないかな。。。 -->
+  <% if @user.present? && @current_user.present? && @user != @current_user %> <!-- 上手くできないかな。。。 -->
     <div class="flex justify-between">
   <% end %>
     <!-- ユーザーへのリンク、フォローボタン -->
-    <% if @user.present? && @user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
+    <% if @user.present? && @current_user.present? && @user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
       <div class="flex justify-start">
         <%= link_to @user.name, @user, class: "mr-2 text-2xl font-bold flex items-center" %>
         <% if @current_user.following?(@user) %> <%# フォローしてる？ %>

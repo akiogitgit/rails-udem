@@ -11,7 +11,7 @@
     </div>
     
   <div class="flex justify-start">
-    <% if @user.present? && @user != @current_user %> <%# この投稿主は、登録してる？ %>
+    <% if @user.present? && @current_user.present? && @user != @current_user %> <%# この投稿主は、登録してる？ %>
       <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
         <!-- 下のpath全然違うよ -->
         <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-70" %>
@@ -34,9 +34,12 @@
             <!--<li><%= board.updated_at.to_s(:datetime_jp) %></li>-->
           </ul>
         <% end %>
-        <div class="hidden sm:block mt-4 text-center w-[100px] text-md">
-          <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %><!--buttonだと行けた-->
-        </div>
+        <!-- 自分の投稿のみ消せる -->
+        <% if @current_user.present? && board.name == @current_user.name %>
+          <div class="hidden sm:block mt-4 ml-2 text-md">
+            <%= button_to "削除", board, method: :delete, class: "danger-btn font-bold" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% else %>
