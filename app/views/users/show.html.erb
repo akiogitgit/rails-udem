@@ -14,7 +14,7 @@
     <% if @user.present? && @current_user.present? && @user != @current_user %> <%# この投稿主は、登録してる？ %>
       <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
         <!-- 下のpath全然違うよ -->
-        <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-70" %>
+        <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-60" %>
       <% else %>
         <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
       <% end %>

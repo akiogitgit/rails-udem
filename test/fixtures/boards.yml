@@ -4,7 +4,9 @@
 #
 #  id         :integer          not null, primary key
 #  body       :text
+#  liked      :integer          default(0)
 #  name       :string
+#  published  :boolean          default(TRUE)
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

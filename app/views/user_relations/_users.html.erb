@@ -1,44 +1,46 @@
 <%# if @users.exists? %>
 <!-- フォロー一覧、フォロワー一覧、ユーザー一覧ページ -->
-<% if @users.present? %>
-  <div class="flex flex-wrap gap-4">
+<% if @users.present? && @current_user.present? %>
+  <div class="w-full">
     <% @users.each do |user| %>
-      <ul class="p-4 border-2 border-gray-300 rounded w-[200px]">
         <%= link_to user do %>
-          <li><%= user.name %></li>
-          <li><%= user.id %></li>
+      <ul class="p-4 mb-10 border-2 border-gray-300 rounded">
 
-          <!-- params[:id] = user.id として送る -->
-          <% if user.present? && @current_user.present? && user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
-            <div class="flex justify-start">
-              <%= link_to user.name, user, class: "mr-2 text-2xl font-bold flex items-center" %>
-              <% if @current_user.following?(user) %> <%# フォローしてる？ %>
-                <%= button_to "フォロー外す", user_relation_path(user.id), method: :delete, class: "primary-btn opacity-70" %>
-              <% else %>
-                <%= button_to "フォローする", user_relations_path(user.id), method: :post, class: "primary-btn" %>
-              <% end %>
-            </div>
-        <% end %>
+          <!-- postの時params[:format], deleteの時params[:id] = user.id で送る -->
+          <div class="flex justify-between">
+            <div class="mr-2 text-2xl font-bold flex items-center"><%= user.name %></div>
+            <% if user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
+              <div class="flex">
+                <% if @current_user.following?(user) %> <%# フォローしてる？ %>
+                  <%= button_to "フォロー外す", user_relation_path(user.id), method: :delete, class: "primary-btn opacity-60 z-10" %>
+                <% else %>
+                  <%= button_to "フォローする", user_relations_path(user.id), method: :post, class: "primary-btn z-10" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
 
-        <p>
-          <span class="mr-1 font-bold text-2xl">
-            <%= user.followings.count %>
-          </span>フォロー中
-        </p>
-        <p>
-          <span class="mr-1 font-bold text-2xl">
-            <%= user.followers.count %>
-          </span>フォロワー
-        </p>
-        <p>
-          <span class="mr-1 font-bold text-2xl">
-            <%= Board.where(name: user.name).count %>
-          </span>投稿数
-        </p>
-        <% end %>
+          <div class="flex gap-4">
+            <p>
+              <span class="mr-1 font-bold text-2xl">
+                <%= user.followings.count %>
+              </span>フォロー中
+            </p>
+            <p>
+              <span class="mr-1 font-bold text-2xl">
+                <%= user.followers.count %>
+              </span>フォロワー
+            </p>
+            <p>
+              <span class="mr-1 font-bold text-2xl">
+                <%= Board.where(name: user.name).count %>
+              </span>投稿数
+            </p>
+          </div>
       </ul>
+        <% end %>
     <% end %>
   </div>
 <% else %>
-  <p>ユーザーはいません</p>
+  <p>ログインしてください</p>
 <% end %>
