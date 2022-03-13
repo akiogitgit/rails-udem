@@ -1,11 +1,9 @@
 <% @boards.each do |board|  %>
   <div class="flex text-[16px]">
-    <!-- urlに/usersが含まれて、usersが自分のではない -->
-    <% if request.path.match(/\/users(\/)?/) && !(request.path.match(/\/#{@current_user.id}(\/)?/)) %>
-      <div class="max-w-[800px]">
-    <% else %>
-      <div class="sm:w-[89.9%] md:w-[91.6%] lg:w-[92.5%] max-w-[800px]">
-    <% end %>
+    <!-- urlに/usersが含まれて、usersが自分のではない 三項演算子 -->
+    <div class="<%=request.path.match(/\/users(\/)?/) && !(request.path.match(/\/#{@current_user.id}(\/)?/)) ? 
+      "max-w-[800px]" : "sm:w-[89.9%] md:w-[91.6%] lg:w-[92.5%] max-w-[800px]" %>"
+    >
       <%= link_to board do %>
         <ul class="p-2 grid grid-cols-4 text-center font-bold hover:bg-gray-300 border-b-2">
           <li class=""><%= board.id %></li>

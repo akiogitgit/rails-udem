@@ -1,8 +1,6 @@
 <!-- board個別ページ -->
 <div>
-  <% if @user.present? && @current_user.present? && @user != @current_user %> <!-- 上手くできないかな。。。 -->
-    <div class="flex justify-between">
-  <% end %>
+  <div class="<%='flex justify-between' if @user.present? && @current_user.present? && @user != @current_user%>">
     <!-- ユーザーへのリンク、フォローボタン -->
       <div class="flex justify-start">
         <% if @user.present? %> <%# 投稿者は登録している %>
@@ -23,10 +21,7 @@
         <%= link_to "編集", edit_board_path, class: "secondary-btn" %>
       <% end %>
     </div>
-
-  <% if @user.present? && @user != @current_user %>
-    </div> <!-- もっと上手くできないかな... -->
-  <% end %>
+  </div>
   
   <!-- boardのタイトル、タグ、本文 -->
   <section>

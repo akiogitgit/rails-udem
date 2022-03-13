@@ -36,26 +36,19 @@ class UserRelationsController < ApplicationController
 
   # folllowings, followersはparams[:id]使えない。session,flash使う？
   # sessionだと、消すタイミング難しそう。。。
+  # followings_path(@user.id)で、params[:format]として受け取れる！
   # フォロー一覧
   def followings
-    # if params[:id].present?
-    if session[:user].present?
-      # user = User.find(params[:id]) # 表示しているユーザーの
-      @user = User.find(session[:user]["id"])
-    else
-      @user = User.find(@current_user.id) # loginユーザーのフォロー一覧
+    if params[:format].present?
+      @user = User.find(params[:format])
     end
     @users = @user.followings
   end
 
   # フォロワー一覧
   def followers
-    # if params[:id].present?
-    if session[:user].present?
-      # user = User.find(params[:id])
-      @user = User.find(session[:user]["id"])
-    else
-      @user = User.find(@current_user.id) # loginユーザーのフォロー一覧
+    if params[:format].present?
+      @user = User.find(params[:format])
     end
     @users = @user.followers
   end
