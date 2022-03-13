@@ -104,6 +104,7 @@ class BoardsController < ApplicationController
     end
   end
 
+  # 普通にboardを更新する or いいね
   def update
     if @board.update(board_params)
       flash[:notice] = "「#{@board.title}」 の掲示板を更新しました。"

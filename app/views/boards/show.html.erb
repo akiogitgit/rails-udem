@@ -4,16 +4,18 @@
     <div class="flex justify-between">
   <% end %>
     <!-- ユーザーへのリンク、フォローボタン -->
-    <% if @user.present? && @current_user.present? && @user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
       <div class="flex justify-start">
-        <%= link_to @user.name, @user, class: "mr-2 text-2xl font-bold flex items-center" %>
-        <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
-          <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-60" %>
-        <% else %>
-          <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
+        <% if @user.present? %> <%# 投稿者は登録している %>
+          <%= link_to @user.name, @user, class: "mr-2 text-2xl font-bold flex items-center" %>
+          <% if @current_user.present? && @user != @current_user %> <%# 今ログインしていて、投稿者は自分ではない %>
+            <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
+              <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-60" %>
+            <% else %>
+              <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
-    <% end %>
 
     <div class="flex gap-3 justify-end">
       <%= link_to "一覧",boards_path, class: "secondary-btn" %>
@@ -43,9 +45,23 @@
       <p class="p-4 flex justify-end text-sm"><%= @board.name %></p>
     </div>
 
-    <div class="text-sm text-gray-500 text-right">
-      <p>作成日：<%= @board.created_at.to_s(:datetime_jp) %></p>
-      <p>更新日：<%= @board.updated_at.to_s(:datetime_jp) %></p>
+    <div class="<%='flex justify-between' if @user.present? && @current_user.present? && @user != @current_user%>">
+      <% if @user.present? && @current_user.present? && @user != @current_user %> <%# 投稿者は登録していて自分ではない %>
+        <!-- いいね -->
+        <% if @board.favorited_by?(@current_user) %>
+          <%= button_to board_favorite_path(@board.id), method: :delete do %>
+            💖<%= @board.favorites.count %> いいね
+          <% end %>
+        <% else %>
+          <%= button_to board_favorites_path(@board.id), method: :post do %>
+            ♡<%= @board.favorites.count %> いいね
+          <% end %>
+        <% end %>
+      <% end %>
+      <div class="text-sm text-gray-500 text-right">
+        <p>作成日：<%= @board.created_at.to_s(:datetime_jp) %></p>
+        <p>更新日：<%= @board.updated_at.to_s(:datetime_jp) %></p>
+      </div>
     </div>
   </section>
 

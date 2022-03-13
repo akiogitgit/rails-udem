@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_13_003947) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_13_021215) do
   create_table "board_tag_relations", force: :cascade do |t|
     t.integer "board_id", null: false
     t.integer "tag_id", null: false
@@ -26,8 +26,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_003947) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "published", default: true
-    t.integer "liked", default: 0
   end
 
   create_table "comments", force: :cascade do |t|
@@ -37,6 +35,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_003947) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_comments_on_board_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|

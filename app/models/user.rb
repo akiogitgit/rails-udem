@@ -38,6 +38,9 @@ class User < ApplicationRecord
   has_many :followers,
             through: :passive_relationships,
             source: :follower  # followingsはfollower idの集合体
+  
+  # こっちは　いいねの方
+  has_many :favorites, dependent: :delete_all
 
   # 上の記述により使えるメソッド
   # active_relationships.follower フォロワーを返す

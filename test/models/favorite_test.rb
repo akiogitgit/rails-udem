@@ -1,17 +1,16 @@
 # == Schema Information
 #
-# Table name: boards
+# Table name: favorites
 #
 #  id         :integer          not null, primary key
-#  body       :text
-#  name       :string
-#  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  board_id   :integer
+#  user_id    :integer
 #
 require "test_helper"
 
-class BoardTest < ActiveSupport::TestCase
+class FavoriteTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
