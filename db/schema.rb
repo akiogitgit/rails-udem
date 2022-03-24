@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_13_021215) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_24_082415) do
   create_table "board_tag_relations", force: :cascade do |t|
     t.integer "board_id", null: false
     t.integer "tag_id", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_13_021215) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "published", default: true
   end
 
   create_table "comments", force: :cascade do |t|
