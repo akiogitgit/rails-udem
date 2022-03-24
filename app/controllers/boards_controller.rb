@@ -1,29 +1,17 @@
 class BoardsController < ApplicationController
-
+  helper_method :sort_column, :sort_direction
   # 最初に指定したメソッドで実行(このメソッドの中に@boardの文が入る)
   before_action :set_board, only: %i[show edit update destroy]
 
+  # tag > kaminari > order, 全表示
   def index
     # @board = Board.all # 最初(全部表示)
     # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
     # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
 
-    # tagは初期値nil,paramsが来たらsessionを変更,
-    # tag_id="" (タグで絞り込む)ならsession = nil
-    # asc変更したら、tag_idが来なくなる
-    if session[:order_by].nil?
-      session[:order_by] = "0"
-    end
-    # タグで絞り込むで全表示は諦めて、全表示ボタンを作成
-    if params[:all].present?
-      session[:tag_id] = nil
-    end
-    # sessionとparamsが違ったらsessionを更新
-    if params[:order_by].present?
-      if session[:order_by] != params[:order_by][:asc]
-        session[:order_by] = params[:order_by][:asc]
-      end
-    end
+    session[:order_by] = "0" if session[:order_by].nil? # asc変更したら、tag_idが来なくなる
+    session[:tag_id] = nil if params[:all].present? # タグで絞り込むで全表示は諦めて、全表示ボタンを作成
+    session[:order_by] = params[:order_by][:asc] if  params[:order_by].present? && session[:order_by] != params[:order_by][:asc] # sessionとparamsが違ったらsessionを更新
     # paramsが来て、sessionと違うならsessionを更新
     if params[:tag_id].present?
       if session[:tag_id] != params[:tag_id]
@@ -33,11 +21,11 @@ class BoardsController < ApplicationController
     # paramsない時sessionのでやる
     if session[:order_by] == "1"
       # binding.pry
-      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order(id: "ASC") : Board.page(params[:page]).order(id: "ASC")  # タグ検索追加(タグで絞りこむで全表示)
+      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).order("#{sort_column} #{sort_direction}")  # タグ検索追加(タグで絞りこむで全表示)
       @asc = "1"
       flash[:asc] = 1
     else
-      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")
+      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).order("#{sort_column} #{sort_direction}")
       @asc = "0"
       flash[:asc] = nil
     end
@@ -136,8 +124,18 @@ class BoardsController < ApplicationController
   end
 
   def set_board
-    # show create edit update destroyの一番上で実行されるから、消す
+    # before_actionで指定したアクションの一番上で実行されるから、消す
     @board = Board.find(params[:id])
+  end
+
+  # paramsに asc・descが無いなら、ascを返す
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+  
+  # Boardのカラムに含まれていないなら、初期値でidでソート
+  def sort_column  
+    Board.column_names.include?(params[:column]) ? params[:column] : 'id'
   end
 end
 
