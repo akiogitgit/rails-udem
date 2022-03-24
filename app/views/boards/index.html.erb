@@ -45,10 +45,14 @@
 
   <section class="sm:w-[89.9%] md:w-[91.6%] lg:w-[92.5%]">
     <ul class="p-2 grid grid-cols-4 text-center bg-black text-white text-sm sm:text-xl font-bold">
-      <li>ID</li>
+      <%# <li>ID</li>
       <li>タイトル</li>
       <li>作成者</li>
-      <li>作成日時</li>
+      <li>作成日時</li> %>
+      <li><%= sort_order "id", "ID" %></li>
+      <li><%= sort_order "title", "タイトル" %></li>
+      <li><%= sort_order "name", "作成者" %></li>
+      <li><%= sort_order "created_at", "作成日時" %></li>
       <!--<li>更新日時</li>-->
     </ul>
   </section>
