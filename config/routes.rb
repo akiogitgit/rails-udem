@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   # to でpath名を変えられる
   post "login", to: "sessions#create" # 当然post,deleteとかも使える
   delete "logout", to: "sessions#destroy"
-  get "mypage", to: "users#me"
 
   get "followings", to: "user_relations#followings"
   get "followers", to: "user_relations#followers"
