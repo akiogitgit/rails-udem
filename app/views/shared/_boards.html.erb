@@ -5,7 +5,7 @@
       "max-w-[800px]" : "sm:w-[89.9%] md:w-[91.6%] lg:w-[92.5%] max-w-[800px]" %>"
     >
       <%= link_to board do %>
-        <ul class="p-2 grid grid-cols-4 text-center font-bold hover:bg-gray-300 border-b-2">
+        <ul class="p-2 grid grid-cols-4 text-center font-bold <%= "bg-gray-300" if board.published == false %> hover:bg-gray-300 border-b-2">
           <li class=""><%= board.id %></li>
           <li class=""><%= board.title %></li>
           <li class=""><%= board.name %></li>
