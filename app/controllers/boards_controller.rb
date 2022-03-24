@@ -25,9 +25,7 @@ class BoardsController < ApplicationController
         board: board_params,
         error: "その名前は使用できません" # そのユーザーは既に存在します
       }
-
     else
-      # Board.create(board_params) # validateやらないなら、createでOK
       board =  Board.new(board_params)
       if board.save # validationチェック
         flash[:notice] = "「#{params[:board][:title]}」の掲示板を作成しました。"
@@ -99,7 +97,7 @@ class BoardsController < ApplicationController
   
   # 必要ないのを受け取らないように、strong parameterで制限する
   def board_params
-    params.require(:board).permit(:name, :title, :body, tag_ids: []) # tag_idsはタグ
+    params.require(:board).permit(:name, :title, :body, :published, tag_ids: []) # tag_idsはタグ
   end
 
   def set_board
