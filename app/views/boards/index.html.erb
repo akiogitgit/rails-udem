@@ -19,19 +19,6 @@
         %>
       <% end %>
 
-      <!-- boardsを昇順、降順で表示,  boards/index にparams[:order_by]として渡す -->
-      <%= form_with scope: :order_by, url: boards_path, local: true, method: :get do |f|  %>
-        <% if @asc == "1" %>
-          <%= f.check_box :asc, class: "hidden" %>
-          <div class="cursor-pointer">
-          <%= f.submit "降順", class: "p-1 border-2 border-gray-300 rounded cursor-pointer" %>
-          </div>
-        <% else %>
-          <%= f.check_box :asc, checked: true, class: "hidden" %>
-          <%= f.submit "昇順", class: "p-1 border-2 border-gray-300 rounded cursor-pointer" %>
-        <% end %>
-      <% end %>
-
       <!-- 押すと全board表示 -->
       <%= form_with scope: :all, url:boards_path, local: true, method: :get do |f| %>
         <%= f.hidden_field :all, value: 1 %>

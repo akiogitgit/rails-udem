@@ -5,30 +5,9 @@ class BoardsController < ApplicationController
 
   # tag > kaminari > order, 全表示
   def index
-    # @board = Board.all # 最初(全部表示)
-    # @boards = Board.page(params[:page]) # kaminariのページメソッド(25件)
-    # @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards.page(params[:page]).order(id: "DESC") : Board.page(params[:page]).order(id: "DESC")  # タグ検索追加(タグで絞りこむで全表示)
-
-    session[:order_by] = "0" if session[:order_by].nil? # asc変更したら、tag_idが来なくなる
     session[:tag_id] = nil if params[:all].present? # タグで絞り込むで全表示は諦めて、全表示ボタンを作成
-    session[:order_by] = params[:order_by][:asc] if  params[:order_by].present? && session[:order_by] != params[:order_by][:asc] # sessionとparamsが違ったらsessionを更新
-    # paramsが来て、sessionと違うならsessionを更新
-    if params[:tag_id].present?
-      if session[:tag_id] != params[:tag_id]
-        session[:tag_id] = params[:tag_id]
-      end
-    end
-    # paramsない時sessionのでやる
-    if session[:order_by] == "1"
-      # binding.pry
-      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).order("#{sort_column} #{sort_direction}")  # タグ検索追加(タグで絞りこむで全表示)
-      @asc = "1"
-      flash[:asc] = 1
-    else
-      @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).order("#{sort_column} #{sort_direction}")
-      @asc = "0"
-      flash[:asc] = nil
-    end
+    session[:tag_id] = params[:tag_id] if params[:tag_id].present? && session[:tag_id] != params[:tag_id] # paramsが来て、sessionと違うならsessionを更新
+    @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).order("#{sort_column} #{sort_direction}")  # タグ検索追加(タグで絞りこむで全表示)
   end
 
   # 新規作成 new(get), create(post)
