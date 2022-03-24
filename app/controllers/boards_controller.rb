@@ -7,7 +7,7 @@ class BoardsController < ApplicationController
   def index
     session[:tag_id] = nil if params[:all].present? # タグで絞り込むで全表示は諦めて、全表示ボタンを作成
     session[:tag_id] = params[:tag_id] if params[:tag_id].present? && session[:tag_id] != params[:tag_id] # paramsが来て、sessionと違うならsessionを更新
-    @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).order("#{sort_column} #{sort_direction}")  # タグ検索追加(タグで絞りこむで全表示)
+    @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).where(published: true).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).where(published: true).order("#{sort_column} #{sort_direction}")  # タグ検索追加(タグで絞りこむで全表示)
   end
 
   # 新規作成 new(get), create(post)

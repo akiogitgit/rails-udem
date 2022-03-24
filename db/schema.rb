@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_24_082415) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "private", default: true
+    t.boolean "published", default: true
   end
 
   create_table "comments", force: :cascade do |t|
