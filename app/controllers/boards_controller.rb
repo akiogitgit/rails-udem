@@ -139,5 +139,13 @@ class BoardsController < ApplicationController
     # show create edit update destroyの一番上で実行されるから、消す
     @board = Board.find(params[:id])
   end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+    
+  def sort_column  
+    Board.column_names.include?(params[:sort]) ? params[:sort] : 'id'
+  end
 end
 
