@@ -8,9 +8,7 @@ class CommentsController < ApplicationController
       # こっちはCommentの方のcomment
       comment = Comment.new(comment_params)
       if comment.save
-        redirect_to comment.board, flash:{
-          notice: "コメントを投稿しました"
-        }
+        redirect_to comment.board, flash:{ notice: "コメントを投稿しました" }
       else
         # validate error
         flash[:comment] = comment
@@ -24,11 +22,9 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @current_user.present? && @comment.name == @current_user.name
       @comment.destroy
-      redirect_to request.referer
-      flash[:error] = "コメントを削除しました。"
+      redirect_to request.referer, flash:{ error: "コメントを削除しました。" }
     else
-      flash[:error] = "このコメントは削除できません"
-      redirect_to request.referer
+      redirect_to request.referer, flash:{ error: "このコメントは削除できません" }
     end
   end
 

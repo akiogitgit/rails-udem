@@ -2,11 +2,10 @@ class TagsController < ApplicationController
   before_action :set_tag, only: %i[destroy]
   def index
     @tags = Tag.all
-    @tag = Tag.new
+    @tag = Tag.new # indexがnewでもある
   end
 
   def create
-    @tag = Tag.new # newがないから
     tag = Tag.new(tag_params)
     if tag.save
       redirect_to tags_path,flash:{ notice: "タグを作成しました。" }
@@ -24,12 +23,12 @@ class TagsController < ApplicationController
   end
 
   private
+  
+    def tag_params
+      params.require(:tag).permit(:name)
+    end
 
-  def tag_params
-    params.require(:tag).permit(:name)
-  end
-
-  def set_tag
-    @tag = Tag.find(params[:id])
-  end
+    def set_tag
+      @tag = Tag.find(params[:id])
+    end
 end

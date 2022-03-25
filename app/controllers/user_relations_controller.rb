@@ -1,34 +1,23 @@
 class UserRelationsController < ApplicationController
-
   # boardからフォローするなら、board.id 160で、board = Board.find(params[:id])
   # それでboardから名前出してフォローする
 
   # フォローする場合
   # users/show, users/index, boards/show -> params[:id] = board.idだからflash
   def create
-    if flash[:follow_user_name] # boardsから押した時
-      user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
-    else
-      user = User.find(params[:format]) # users/index show から
-    end
+    # board/showからはflashで、usersからはparams
+    user = flash[:follow_user_name] ? User.find_by(name: flash[:follow_user_name]) : User.find(params[:format])
     if @current_user.follow(user.id)
-      flash[:notice] = "#{user.name}さんをフォローしました"
-      redirect_to request.referer
+      redirect_to request.referer, flash: { notice: "#{user.name}さんをフォローしました"}
     else
       flash[:error] = "フォローに失敗しました"
     end
   end
 
   def destroy
-    if flash[:follow_user_name] # boardsから押した時
-      user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
-    else
-      user = User.find(params[:id]) # users/index show から
-    end
-    
+    user = flash[:follow_user_name] ? User.find_by(name: flash[:follow_user_name]) : User.find(params[:id])
     if @current_user.unfollow(user.id) # model/user
-      flash[:error] = "#{user.name}さんのフォローを解除しました"
-      redirect_to request.referer
+      redirect_to request.referer, flash: { notice: "#{user.name}さんのフォローを解除しました"}
     else
       flash[:error] = "フォロー解除に失敗しました"
     end
