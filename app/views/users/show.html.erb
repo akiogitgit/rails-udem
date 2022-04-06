@@ -1,5 +1,7 @@
 <div>
+  <% breadcrumb :user_path_show %>
   <div class="flex gap-10 mb-10">
+    <% breadcrumb :user_path_show, @user %>
     <h1 class="font-bold"><%= @user.name %></h1>
     <div class="flex gap-3">
       <%= link_to followings_path(@user.id) do %>

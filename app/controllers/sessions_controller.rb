@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     # authenは has_secure_password を追加すると使えるメソッド
     if user && user.authenticate(params[:session][:password])  # userがいて、pwdあってる？
       session[:user_id] = user.id # セッションに保存 user_id はなんでもいい
-      redirect_to mypage_path, flash: { notice: "#{params[:session][:name]}さんようこそ" }
+      redirect_to user_path(user.id), flash: { notice: "#{params[:session][:name]}さんようこそ" }
     else
       redirect_to root_path, flash: { error: "ログインに失敗しました" }
       # render "home/index" # flash出せない

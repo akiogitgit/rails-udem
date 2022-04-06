@@ -2,11 +2,13 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    # session[:user_name] = nil
   end
 
   # user個別ページ
   def show
     session[:user] = nil
+    session[:user_name] = nil
     @user = User.find(params[:id])
     if @user == current_user
       @boards = Board.where(name: @user.name).order(id: "DESC")
