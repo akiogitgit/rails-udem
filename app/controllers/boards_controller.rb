@@ -8,8 +8,6 @@ class BoardsController < ApplicationController
     session[:tag_id] = nil if params[:all].present? # タグで絞り込むで全表示は諦めて、全表示ボタンを作成
     session[:tag_id] = params[:tag_id] if params[:tag_id].present? && session[:tag_id] != params[:tag_id] # paramsが来て、sessionと違うならsessionを更新
     @boards = session[:tag_id].present? ? Tag.find(session[:tag_id]).boards.page(params[:page]).where(published: true).order("#{sort_column} #{sort_direction}") : Board.page(params[:page]).where(published: true).order("#{sort_column} #{sort_direction}")  # タグ検索追加(タグで絞りこむで全表示)
-    session[:board_title] = nil
-    session[:board_id] = nil
   end
 
   # 新規作成 new(get), create(post)
@@ -49,6 +47,8 @@ class BoardsController < ApplicationController
     @comment = Comment.new(board_id: @board.id)
     @user = User.find_by(name: @board.name)
     flash[:follow_user_name] = @board.name
+    session[:board_title] = nil
+    session[:board_id] = nil
   end
 
   # 編集edit(get), update(post)
