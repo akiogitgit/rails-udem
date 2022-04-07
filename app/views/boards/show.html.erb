@@ -1,6 +1,7 @@
 <!-- board個別ページ -->
 <div>
-  <div class="<%='flex justify-between' if @user.present? && @current_user.present? && @user != @current_user%>">
+  <% breadcrumb :boards_path_show, @board %>
+  <div class="<%='mt-4 flex justify-between' if @user.present? && @current_user.present? && @user != @current_user%>">
     <!-- ユーザーへのリンク、フォローボタン -->
       <div class="flex justify-start">
         <% if @user.present? %> <%# 投稿者は登録している %>

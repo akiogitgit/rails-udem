@@ -43,15 +43,12 @@ class BoardsController < ApplicationController
   # 動的(get) 個別ページ
   def show
     # @board = Board.find(params[:id])
-    # commentをここで使う
     # @comment = @board.comments.new # これはboardの方のcomment。知らぬ間にsaveされるから、空のまま使われる。よくないから消す
     @comment = Comment.new(board_id: @board.id)
     @user = User.find_by(name: @board.name)
     flash[:follow_user_name] = @board.name
-    # これ違う
-    # if @user.present?
-    #   @follow = UserRelation.new(follower_id: @current_user.id)
-    # end
+    session[:board_title] = nil
+    session[:board_id] = nil
   end
 
   # 編集edit(get), update(post)
@@ -93,7 +90,7 @@ class BoardsController < ApplicationController
     end
   end
 
-  private # これより下に、普通のは置かない
+  private
   
   # 必要ないのを受け取らないように、strong parameterで制限する
   def board_params
@@ -107,7 +104,7 @@ class BoardsController < ApplicationController
 
   # paramsに asc・descが無いなら、ascを返す
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
   
   # Boardのカラムに含まれていないなら、初期値でidでソート
