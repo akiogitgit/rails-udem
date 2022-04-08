@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     if user.save
       session[:user_id] = user.id # セッションに保存 user_id はなんでもいい
       # session[:anpan] = user.id
-      redirect_to mypage_path, flash: { notice: "ユーザーを登録しました" }
+      redirect_to user_path(user.id), flash: { notice: "ユーザーを登録しました" }
     else
       redirect_to new_user_path, flash: {
         user: user,
@@ -40,6 +40,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :password, :password_confirmation)
+    params.require(:user).permit(:name, :password, :password_confirmation, :image)
   end
 end
