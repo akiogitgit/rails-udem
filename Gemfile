@@ -16,7 +16,10 @@ gem "bootsnap", require: false
 gem "kaminari"
 gem "rails-i18n"
 gem "gretel"
-
+# gem "refile", require: "refile/rails"
+# gem "refile-mini_magick"
+gem 'carrierwave'
+# gem 'mini_magick'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

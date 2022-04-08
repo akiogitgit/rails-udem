@@ -15,6 +15,9 @@
 class User < ApplicationRecord
   # password, password_confirmation(確認用)の仮想的なカラムが追加される
   has_secure_password
+
+  # attachment :profile_image # user_imageの設定
+  mount_uploader :image, ImageUploader
   
   # controllerで使える。 active_relationships.find_by(followed_id: 1, ...)
   # フォローをする関係
