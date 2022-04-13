@@ -10,8 +10,13 @@ crumb :boards_path_show do |board|
   parent :user_path_show if request.referer&.include?("users/")
 end
 
+crumb :edit_board_path do
+  link "編集", edit_board_path(session[:board_id])
+  parent :boards_path_show
+end
+
 crumb :new_board_path do
-  link "掲示板作成", new_board_path
+  link "作成", new_board_path
   parent :boards_path if request.referer&.include?("board")
 end
 
