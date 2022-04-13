@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  image           :string
 #  name            :string           not null
 #  password_digest :string           not null
 #  created_at      :datetime         not null
@@ -15,6 +16,9 @@
 class User < ApplicationRecord
   # password, password_confirmation(確認用)の仮想的なカラムが追加される
   has_secure_password
+
+  # attachment :profile_image # user_imageの設定
+  mount_uploader :image, ImageUploader
   
   # controllerで使える。 active_relationships.find_by(followed_id: 1, ...)
   # フォローをする関係
