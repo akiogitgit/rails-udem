@@ -1,11 +1,11 @@
 <div>
   <% breadcrumb :user_path_show %>
-  <div class="flex justify-between">
-    <div class="flex gap-10 mb-10">
+  <div class="flex justify-between items-center mb-10">
+    <div class="flex gap-10 items-center">
       <% breadcrumb :user_path_show, @user %>
-      <div class="text-center">
-        <%= image_tag @user.image_url, class: 'rounded-full', width: 80 %>
-        <h1 class="font-bold"><%= @user.name %></h1>
+      <div class="flex items-center gap-3">
+        <div class="w-[70px] h-[70px]"><%= image_tag @user.image_url, class: 'rounded-full w-full h-full' %></div>
+        <h1 class="font-bold text-3xl"><%= @user.name %></h1>
       </div>
       <div class="flex gap-3">
         <%= link_to followings_path(@user.id) do %>
@@ -26,7 +26,7 @@
           <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
         <% end %>
       <% else %>
-        <%= link_to "編集", users_path, class: "px-4 py-1 border border-black rounded-full" %>
+        <%= link_to "編集", users_path, class: "px-4 py-1 border border-black rounded-full duration-300 hover:bg-black hover:text-white" %>
       <% end %>
     </div>
   </div>

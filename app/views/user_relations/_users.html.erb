@@ -6,10 +6,13 @@
       <% @users.each do |user| %>
         <ul class="p-4 mb-10 border-2 border-gray-300 rounded">
           <!-- postの時params[:format], deleteの時params[:id] = user.id で送る -->
-          <div class="flex justify-between">
-            <%= link_to user do %>
-              <div class="mr-2 text-2xl font-bold flex items-center"><%= user.name %></div>
-            <% end %>
+          <div class="flex justify-between items-center">
+            <div class="flex gap-3 items-center">
+              <div class="w-[70px] h-[70px]"><%= image_tag user.image_url, class: 'rounded-full w-full h-full' %></div>
+              <%= link_to user do %>
+                <div class="mr-2 text-2xl font-bold flex items-center"><%= user.name %></div>
+              <% end %>
+            </div>
             
             <% if user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
               <div class="flex">
