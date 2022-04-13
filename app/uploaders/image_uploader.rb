@@ -14,7 +14,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # デフォルト画像
   def default_url
-    "default.png"
+    "default.png" # app/aseets
   end
 
   # アップロードファイルの指定
