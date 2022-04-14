@@ -25,14 +25,13 @@
           <%= f.submit "全表示", class: "p-1 border-2 border-gray-300 rounded cursor-pointer" %>
         <% end %>
 
-        <%#= link_to "新規作成", boards_new_path, class: "secondary-btn" pathが変更%>
         <%= link_to "作成", new_board_path, class: "secondary-btn"%>
       </div>
     </div>
 
     <div class="mt-4">
       <%= search_form_for @q, url: boards_path do |f| %>
-        <div class="flex gap-2 justify-center sm:flex-row">
+        <div class="flex gap-2 justify-center items-center sm:flex-row sm:justify-end">
           <div class="flex flex-col gap-2 sm:flex-row">
             <div><%= f.text_field :title_cont, placeholder: "タイトル", class: "form-input" %></div>
             <div><%= f.text_field :name_cont, placeholder: "制作者", class: "form-input" %></div>
