@@ -7,7 +7,6 @@ class BoardsController < ApplicationController
   def index
     session[:tag_id] = nil if params[:all].present? # タグで絞り込むで全表示は諦めて、全表示ボタンを作成
     session[:tag_id] = params[:tag_id] if params[:tag_id].present? && session[:tag_id] != params[:tag_id] # paramsが来て、sessionと違うならsessionを更新
-
     # @q = Tag.ransack(params[:q]).where(published: true)
     # @boards = @q.result(distinct: true)
     if session[:tag_id].present?
