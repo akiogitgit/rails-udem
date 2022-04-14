@@ -20,7 +20,7 @@ false: nil,false,  true: 1,0,"",true
     <% end %>
   </div>
   <div class="form-group">
-    <%= f.label :title, "タイトル" %>
+    <%= f.label :title %>
     <% if @current_user.present? %>
       <%= f.text_field :title, class: "form-input", required: true, maxlength: "30", autofocus: true %>
     <% else %>
@@ -28,7 +28,7 @@ false: nil,false,  true: 1,0,"",true
     <% end %>
   </div>
   <div class="form-group">
-    <%= f.label :body, "本文" %>
+    <%= f.label :body %>
     <%= f.text_area :body, class: "form-input", rows: 10, required: true, maxlength: "500" %>
   </div>
 

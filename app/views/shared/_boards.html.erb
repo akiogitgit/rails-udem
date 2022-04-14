@@ -6,10 +6,10 @@
     >
       <%= link_to board do %>
         <ul class="p-2 grid grid-cols-4 text-center font-bold <%= "bg-gray-300" if board.published == false %> hover:bg-gray-300 border-b-2">
-          <li class=""><%= board.id %></li>
-          <li class=""><%= board.title %></li>
-          <li class=""><%= board.name %></li>
-          <li class=""><%= board.created_at.to_s(:datetime_jp) %></li>
+          <li><%= board.id %></li>
+          <li><%= board.title %></li>
+          <li><%= board.name %></li>
+          <li><%= board.created_at.to_s(:datetime_jp) %></li>
         </ul>
       <% end %>
     </div>
