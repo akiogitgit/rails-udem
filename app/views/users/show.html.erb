@@ -26,7 +26,7 @@
           <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn" %>
         <% end %>
       <% else %>
-        <%= link_to "編集", users_path, class: "px-4 py-1 border border-black rounded-full duration-300 hover:bg-black hover:text-white" %>
+        <%= link_to "編集", edit_user_path, class: "px-4 py-1 border border-black rounded-full duration-300 hover:bg-black hover:text-white" %>
       <% end %>
     </div>
   </div>
