@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :boards # これで上の全てに対応
   resources :comments, only: %i[create destroy] # onlyでこれだけ使う
   resources :tags, only: %i[index create destroy]
-  resources :users, only: %i[index show new create]
+  resources :users
   # resources :sessions, only: %i[create destroy] # 名前を変えたいから上に書く
   resources :user_relations, only: %i[create destroy]
   resources :boards do

@@ -1,15 +1,17 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[show create edit update destroy]
+  before_action :check_current_user, only: %i[edit update]
 
   def index
     @q = User.all.ransack(params[:q])
     @users = @q.result(distinct: true)
   end
 
+  
   # user個別ページ
   def show
     session[:user] = nil
     session[:user_name] = nil
-    @user = User.find(params[:id])
     if @user == current_user
       @boards = Board.where(name: @user.name).order(id: "DESC")
     else
@@ -37,9 +39,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      redirect_to request.referer#, flash: { error: @user.errors.full_messeges }
+    end
+  end
+
   private
 
-  def user_params
-    params.require(:user).permit(:name, :password, :password_confirmation, :image)
-  end
+    def user_params
+      params.require(:user).permit(:name, :password, :password_confirmation, :image)
+    end
+
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def check_current_user
+      redirect_to boards_path, flash: { error: "そのユーザーは編集出来ません。" } if @user != current_user
+    end
 end
