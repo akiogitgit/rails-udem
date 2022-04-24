@@ -19,7 +19,7 @@
           <li><%= button_to "ログアウト", logout_path, method: :delete, class: "duration-300 hover:opacity-60" %></li>
         <% else %>
           <li><%= link_to "登録", new_user_path, class: "duration-300 hover:opacity-60" %></li>
-          <li><%= link_to "ログイン", root_path, class: "duration-300 hover:opacity-60" %></li>
+          <li><%= link_to "ログイン", login_path, class: "duration-300 hover:opacity-60" %></li>
         <% end %>
       </ul>
     </div>

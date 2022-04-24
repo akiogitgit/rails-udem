@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root "boards#index" # login は home#indexでしてる
 
   # to でpath名を変えられる
+  get "login", to: "home#index"
   post "login", to: "sessions#create" # 当然post,deleteとかも使える
   delete "logout", to: "sessions#destroy"
 
