@@ -25,27 +25,27 @@
             <% end %>
           </div>
 
-            <div class="flex gap-4">
-              <%= link_to followings_path(user.id) do %>
-                <p>
-                  <span class="mr-1 font-bold text-2xl">
-                    <%= user.followings.count %>
-                  </span>フォロー中
-                </p>
-              <% end %>
-              <%= link_to followers_path(user.id) do %>
-                <p>
-                  <span class="mr-1 font-bold text-2xl">
-                    <%= user.followers.count %>
-                  </span>フォロワー
-                </p>
-              <% end %>
+          <div class="flex gap-4">
+            <%= link_to followings_path(user.id) do %>
               <p>
                 <span class="mr-1 font-bold text-2xl">
-                  <%= Board.where(name: user.name).count %>
-                </span>投稿数
+                  <%= user.followings.count %>
+                </span>フォロー中
               </p>
-            </div>
+            <% end %>
+            <%= link_to followers_path(user.id) do %>
+              <p>
+                <span class="mr-1 font-bold text-2xl">
+                  <%= user.followers.count %>
+                </span>フォロワー
+              </p>
+            <% end %>
+            <p>
+              <span class="mr-1 font-bold text-2xl">
+                <%= Board.where(name: user.name).count %>
+              </span>投稿数
+            </p>
+          </div>
         </ul>
       <% end %>
     </div>

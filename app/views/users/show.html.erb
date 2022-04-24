@@ -1,13 +1,13 @@
 <div>
-  <% breadcrumb :user_path_show %>
+  <%# breadcrumb :user_path_show %>
   <div class="flex justify-between items-center mb-10">
     <div class="flex gap-10 items-center">
       <% breadcrumb :user_path_show, @user %>
       <div class="flex items-center gap-3">
         <div class="w-[70px] h-[70px]"><%= image_tag @user.image_url, class: 'rounded-full w-full h-full' %></div>
-        <h1 class="font-bold text-3xl"><%= @user.name %></h1>
+        <h1 class="font-bold text-2xl"><%= @user.name %></h1>
       </div>
-      <div class="flex gap-3">
+      <div class="flex gap-3 text-sm">
         <%= link_to followings_path(@user.id) do %>
           <p><span class="mr-1 font-bold text-2xl"><%= @user.followings.count %></span>フォロー中</p>
         <% end %>
@@ -27,6 +27,46 @@
         <% end %>
       <% else %>
         <%= link_to "編集", edit_user_path, class: "px-4 py-1 border border-black rounded-full duration-300 hover:bg-black hover:text-white" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="py-4 mb-10">
+    <div class="flex justify-between items-center">
+      <div class="flex gap-3 items-center">
+        <div class="w-[70px] h-[70px]"><%= image_tag @user.image_url, class: 'rounded-full w-full h-full' %></div>
+        <%= link_to @user do %>
+          <div class="mr-2 text-2xl font-bold flex items-center"><%= @user.name %></div>
+        <% end %>
+      </div>
+      
+      <% if @user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
+        <div class="flex">
+          <% if @current_user.following?(@user) %> <%# フォローしてる？ %>
+            <%= button_to "フォロー外す", user_relation_path(@user.id), method: :delete, class: "primary-btn opacity-60 z-10" %>
+          <% else %>
+            <%= button_to "フォローする", user_relations_path(@user.id), method: :post, class: "primary-btn z-10" %>
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to "編集", edit_user_path, class: "px-4 py-1 border border-black rounded-full duration-300 hover:bg-black hover:text-white" %>
+      <% end %>
+    </div>
+
+    <div class="flex gap-4 mt-4">
+      <%= link_to followings_path(@user.id) do %>
+        <p>
+          <span class="mr-1 font-bold text-2xl">
+            <%= @user.followings.count %>
+          </span>フォロー中
+        </p>
+      <% end %>
+      <%= link_to followers_path(@user.id) do %>
+        <p>
+          <span class="mr-1 font-bold text-2xl">
+            <%= @user.followers.count %>
+          </span>フォロワー
+        </p>
       <% end %>
     </div>
   </div>

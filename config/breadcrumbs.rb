@@ -29,14 +29,22 @@ crumb :user_path_show do |user|
   session[:user_name] = user.name if session[:user_name].nil?
   if request.referer&.include?("boards/")
     link user.name, user_path(user.id)
-  else
-    link session[:user_name], user_path(session[:user_id])
-  end
-  if request.referer&.include?("boards/")
     parent :boards_path_show
   else
+    link session[:user_name], user_path(session[:user_id])
     parent :user_path
   end
+
+  # if request.referer&.include?("boards/")
+  #   link user.name, user_path(user.id)
+  # else
+  #   link session[:user_name], user_path(session[:user_id])
+  # end
+  # if request.referer&.include?("boards/")
+  #   parent :boards_path_show
+  # else
+  #   parent :user_path
+  # end
 end
 
 

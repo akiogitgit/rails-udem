@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def index
     @q = User.all.ransack(params[:q])
     @users = @q.result(distinct: true)
+    session[:user_name] = nil
   end
   
   # user個別ページ
