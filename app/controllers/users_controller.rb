@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     @q = User.all.ransack(params[:q])
     @users = @q.result(distinct: true)
   end
-
   
   # user個別ページ
   def show
