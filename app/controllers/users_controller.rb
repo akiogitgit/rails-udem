@@ -44,9 +44,9 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user
+      redirect_to @user, flash: { notice: "#{@user.name}の更新に成功しました" }
     else
-      redirect_to request.referer#, flash: { error: @user.errors.full_messeges }
+      redirect_to request.referer, flash: { error: "#{@user.name}の更新に失敗しました" }
     end
   end
 
