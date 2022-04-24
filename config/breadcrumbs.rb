@@ -29,23 +29,41 @@ crumb :user_path_show do |user|
   session[:user_name] = user.name if session[:user_name].nil?
   if request.referer&.include?("boards/")
     link user.name, user_path(user.id)
-  else
-    link session[:user_name], user_path(session[:user_id])
-  end
-  if request.referer&.include?("boards/")
     parent :boards_path_show
   else
+    link session[:user_name], user_path(session[:user_id])
     parent :user_path
   end
+
+  # if request.referer&.include?("boards/")
+  #   link user.name, user_path(user.id)
+  # else
+  #   link session[:user_name], user_path(session[:user_id])
+  # end
+  # if request.referer&.include?("boards/")
+  #   parent :boards_path_show
+  # else
+  #   parent :user_path
+  # end
 end
 
 
 crumb :followings_path do
-  link "フォロー一覧", followings_path
-  parent :user_path_show
+  if request.referer&.include?("users/")
+    link "フォロー一覧", followings_path
+    parent :user_path_show
+  else
+    link "フォロー一覧", followings_path
+    parent :user_path
+  end
 end
 
 crumb :followers_path do
-  link "フォロワー一覧", followers_path
-  parent :user_path_show
+  if request.referer&.include?("users/")
+    link "フォロワー一覧", followers_path
+    parent :user_path_show
+  else
+    link "フォロワー一覧", followers_path
+    parent :user_path
+  end
 end

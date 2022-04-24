@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show create edit update destroy]
+  before_action :set_user, only: %i[show edit update destroy]
   before_action :check_current_user, only: %i[edit update]
 
   def index
     @q = User.all.ransack(params[:q])
     @users = @q.result(distinct: true)
+    session[:user_name] = nil
   end
-
   
   # user個別ページ
   def show
@@ -44,9 +44,9 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user
+      redirect_to @user, flash: { notice: "#{@user.name}の更新に成功しました" }
     else
-      redirect_to request.referer#, flash: { error: @user.errors.full_messeges }
+      redirect_to request.referer, flash: { error: "#{@user.name}の更新に失敗しました" }
     end
   end
 

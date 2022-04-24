@@ -1,10 +1,9 @@
-<header class="w-full h-[100px] bg-black text-white flex flex-col justify-center">
+<header class="py-6 sm:py-8 w-full bg-black text-white flex flex-col justify-center">
   <nav>
     <div class="flex justify-between gap-6 w-[95%] mx-auto max-w-[800px]">
       <div class="flex gap-4">
-        <%= link_to "BoardApp", root_path, class: "duration-300 hover:opacity-60" %>
+        <%= link_to "Simple Board", root_path, class: "duration-300 hover:opacity-60" %>
         <ul class="sm:flex gap-4 hidden">
-          <li><%= header_link_item("ホーム",root_path) %></li>
           <li><%= header_link_item("掲示板一覧",boards_path) %></li>
           <li><%= header_link_item("作成",new_board_path) %></li>
           <li><%= header_link_item("タグ",tags_path) %></li>
@@ -20,22 +19,15 @@
           <li><%= button_to "ログアウト", logout_path, method: :delete, class: "duration-300 hover:opacity-60" %></li>
         <% else %>
           <li><%= link_to "登録", new_user_path, class: "duration-300 hover:opacity-60" %></li>
-          <li><%= link_to "ログイン", root_path, class: "duration-300 hover:opacity-60" %></li>
+          <li><%= link_to "ログイン", login_path, class: "duration-300 hover:opacity-60" %></li>
         <% end %>
       </ul>
-      <!-- ページ内検索
-      <form class="">
-        <input type="search" name="" id="">
-        <button type="submit"></button>
-      </form>
-      -->
     </div>
+
+    <ul class="mt-4 flex sm:hidden gap-4 text-center justify-center">
+      <li><%= header_link_item("作成",new_board_path) %></li>
+      <li><%= header_link_item("タグ",tags_path) %></li>
+      <li><%= header_link_item("ユーザー",users_path) %></li>
+    </ul>
   </nav>
 </header>
-
-<!--
-  複数の書き方
-  <%= link_to boards_path do%>
-    Rails Udemy
-  <% end %>
--->

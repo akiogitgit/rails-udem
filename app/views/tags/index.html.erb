@@ -1,7 +1,7 @@
 
 <div>
   <section>
-    <h1 class="font-bold">Tag一覧</h1>
+    <h1 class="font-bold">タグ一覧</h1>
     <% if @tags.present? %>
       <ul class="p-4 mt-6 flex flex-wrap gap-4 border-2 border-gray-300 rounded">
       <% @tags.each do |tag| %>
@@ -18,7 +18,7 @@
 
   
   <section class="mt-10">
-    <h1 class="font-bold">Tag作成</h1>
+    <div>タグ作成</div>
     <%= form_with model: @tag, local: true do |f| %>
       <div class="form-group sm:flex-row sm:items-center sm:mt-4">
         <%#= f.label :name, "タグ名", class: "mb-4 sm:mr-4" %>
