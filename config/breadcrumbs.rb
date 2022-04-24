@@ -49,11 +49,21 @@ end
 
 
 crumb :followings_path do
-  link "フォロー一覧", followings_path
-  parent :user_path_show
+  if request.referer&.include?("users/")
+    link "フォロー一覧", followings_path
+    parent :user_path_show
+  else
+    link "フォロー一覧", followings_path
+    parent :user_path
+  end
 end
 
 crumb :followers_path do
-  link "フォロワー一覧", followers_path
-  parent :user_path_show
+  if request.referer&.include?("users/")
+    link "フォロワー一覧", followers_path
+    parent :user_path_show
+  else
+    link "フォロワー一覧", followers_path
+    parent :user_path
+  end
 end
