@@ -12,19 +12,18 @@
 #
 class Board < ApplicationRecord
   # commentは一体多, tagsは多対多, board_tag_relationは、中間テーブル
-  # dependentの
+  # dependentは、関連しているものが削除された時に消す
 
   has_many :comments, dependent: :delete_all
   has_many :board_tag_relations, dependent: :delete_all
   has_many :tags, through: :board_tag_relations
   has_many :favorites, dependent: :delete_all
 
-  #                必須　　　　　　　文字数
   validates :name, presence: true, length: {maximum: 20}
   validates :title, presence: true, length: {maximum: 30}
   validates :body, presence: true, length: {maximum: 500}
 
-  # いいねを確認(書くのは、user.rbでもいける(favorited_by?(board))) @board.favorited_by?(@current_user)
+  # いいねを確認
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
