@@ -3,7 +3,7 @@ class TagsController < ApplicationController
   
   def index
     @tags = Tag.all
-    @tag = Tag.new
+    @tag = Tag.new(flash[:tag])
   end
 
   def create
@@ -11,7 +11,10 @@ class TagsController < ApplicationController
     if tag.save
       redirect_to tags_path,flash:{ notice: "タグを作成しました。" }
     else
-      redirect_to tags_path,flash:{ error: tag.errors.full_messages }
+      redirect_to tags_path,flash:{ 
+        tag: tag_params,
+        error: tag.errors.full_messages
+      }
     end
   end
 
