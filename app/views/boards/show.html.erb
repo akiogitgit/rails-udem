@@ -74,16 +74,4 @@
   
   <!-- コメント -->
   <%= render "shared/comment_form" %> 
-  <%#= render "comment_form", comment: @comment %>
 </div>
-
-
-<!-- delete 失敗の残骸 -->
-<%#= link_to "削除", boards_path(@board), method: :delete, class: "secondary-btn" %>
-<%#= link_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
-<%#= link_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
-<%#= button_to "削除", boards_path(@board, @board.id), method: :delete, class: "secondary-btn" %>
-<%#= button_to "削除", boards_path(@board.id), method: :delete, class: "secondary-btn" %>
-<%#= button_to "削除", boards_path, method: :delete, class: "secondary-btn" %>
-
-<%#= button_to "削除", "#{@board.id}", method: :delete, class: "secondary-btn" %>
