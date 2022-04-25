@@ -12,6 +12,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to boards_path
+    redirect_to boards_path, flash: { error: "ログアウトしました" }
   end
 end
