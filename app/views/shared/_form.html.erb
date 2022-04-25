@@ -39,6 +39,6 @@
   </div>
 
   <div class="mt-4">
-    <%= f.submit "保存", class: "primary-btn" %>
+    <%= f.submit "#{request.url&.include?("edit") ? "更新" : "投稿"}", class: "primary-btn float-right" %>
   </div>
 <% end %>
