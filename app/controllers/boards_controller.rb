@@ -67,14 +67,12 @@ class BoardsController < ApplicationController
       flash[:board] = board_params
       flash[:error] = @board.errors.full_messages
       redirect_back(fallback_location: boards_path)
-      # redirect_to edit
     end
   end
   
   def destroy
     if @current_user.present? && @board.name == @current_user.name
       @board.destroy # deleteでもいける
-      # flash[:error] = "「#{@board.title}」 の掲示板を削除しました。" # redirectにくっつける書き方もある
       redirect_to boards_path, flash: { error: "「#{@board.title}」 の掲示板を削除しました。" }
     else
       flash[:error] = "この投稿は削除できません"
@@ -84,13 +82,11 @@ class BoardsController < ApplicationController
 
   private
   
-  # 必要ないのを受け取らないように、strong parameterで制限する
   def board_params
-    params.require(:board).permit(:name, :title, :body, :published, tag_ids: []) # tag_idsはタグ
+    params.require(:board).permit(:name, :title, :body, :published, tag_ids: [])
   end
 
   def set_board
-    # before_actionで指定したアクションの一番上で実行されるから、消す
     @board = Board.find(params[:id])
   end
 

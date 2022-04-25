@@ -1,24 +1,17 @@
 class SessionsController < ApplicationController
-  # ログイン成功時にsessionにuser_idを保存
+
   def create
-    # User のname, passwordが合ってたら
-    # binding.pry
-    user = User.find_by(name: params[:session][:name]) # userを探す
-    
-    # authenは has_secure_password を追加すると使えるメソッド
-    if user && user.authenticate(params[:session][:password])  # userがいて、pwdあってる？
-      session[:user_id] = user.id # セッションに保存 user_id はなんでもいい
+    user = User.find_by(name: params[:session][:name])
+    if user && user.authenticate(params[:session][:password])
+      session[:user_id] = user.id
       redirect_to user_path(user.id), flash: { notice: "#{params[:session][:name]}さんようこそ" }
     else
       redirect_to root_path, flash: { error: "ログインに失敗しました" }
-      # render "home/index" # flash出せない
     end
   end
 
   def destroy
-    # reset_session # 全てのsession を消す
     session[:user_id] = nil
-
     redirect_to boards_path
   end
 end
