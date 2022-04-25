@@ -11,9 +11,8 @@
 
     <div class="flex flex-col justify-center items-center lg:flex-row lg:justify-between">
       <div class="flex gap-4 justify-center">
-        <!-- タグ検索  送信するpath -->
+        <!-- タグ検索 -->
         <%= form_tag boards_path, method: :get, class: "p-1 border-2 border-gray-300 rounded" do %>
-          <!-- select option。第一にselectのname属性。第二にselectの選択肢を複数作成 Tag.allが選択肢、:idがvalueにセット、:nameは表示名、次が何を選択するか -->
           <%= select_tag :tag_id,
             options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
             {
@@ -24,7 +23,7 @@
           %>
         <% end %>
 
-        <!-- 押すと全board表示 -->
+        <!-- 全表示ボタン -->
         <%= form_with scope: :all, url:boards_path, local: true, method: :get do |f| %>
           <%= f.hidden_field :all, value: 1 %>
           <%= f.submit "全表示", class: "p-1 border-2 border-gray-300 rounded cursor-pointer" %>
@@ -44,7 +43,6 @@
         <% end %>
       </div>
     </div>
-    
   </section>
 
   <section class="mt-6 sm:w-[89.9%] md:w-[91.6%] lg:w-[92.5%]">
@@ -57,10 +55,8 @@
   </section>
 
   <section>
-    <!-- boards一覧 -->
     <%= render "shared/boards" %>
   </section>
 
-  <!-- kaminariのページネーション -->
   <%= paginate @boards %>
 </div>

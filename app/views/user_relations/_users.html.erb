@@ -1,11 +1,8 @@
-<%# if @users.exists? %>
-<!-- フォロー一覧、フォロワー一覧、ユーザー一覧ページ -->
 <% if @current_user.present? %>
   <% if @users.present? %>
     <div class="w-full">
       <% @users.each do |user| %>
         <ul class="p-4 mb-10 border-2 border-gray-300 rounded">
-          <!-- postの時params[:format], deleteの時params[:id] = user.id で送る -->
           <div class="flex justify-between items-center">
             <div class="flex gap-3 items-center">
               <div class="w-[70px] h-[70px]"><%= image_tag user.image_url, class: 'rounded-full w-full h-full' %></div>
@@ -14,9 +11,9 @@
               <% end %>
             </div>
             
-            <% if user != @current_user %> <%# 投稿者は登録していて自分ではない？ %>
+            <% if user != @current_user %>
               <div class="flex">
-                <% if @current_user.following?(user) %> <%# フォローしてる？ %>
+                <% if @current_user.following?(user) %>
                   <%= button_to "フォロー外す", user_relation_path(user.id), method: :delete, class: "primary-btn opacity-60 z-10" %>
                 <% else %>
                   <%= button_to "フォローする", user_relations_path(user.id), method: :post, class: "primary-btn z-10" %>
