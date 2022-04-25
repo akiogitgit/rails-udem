@@ -1,12 +1,12 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: %i[destroy]
+  
   def index
     @tags = Tag.all
     @tag = Tag.new
   end
 
   def create
-    @tag = Tag.new # newがないから
     tag = Tag.new(tag_params)
     if tag.save
       redirect_to tags_path,flash:{ notice: "タグを作成しました。" }
