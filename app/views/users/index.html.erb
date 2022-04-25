@@ -3,9 +3,10 @@
     <h1 class="font-bold mb-4">ユーザー一覧</h1>
     <div>
       <%= search_form_for @q, url: users_path do |f| %>
-        <%# <div class="flex gap-2 justify-center items-center sm:flex-row sm:justify-end"> %>
         <div class="flex gap2 justify-center">
-          <div><%= f.text_field :name_cont, placeholder: "ユーザー名", class: "form-input" %></div>
+          <div>
+            <%= f.text_field :name_cont, placeholder: "ユーザー名", class: "form-input" %>
+          </div>
           <div class="inline" ><%= f.submit "検索", class: "secondary-btn" %></div>
         </div>
       <% end %>

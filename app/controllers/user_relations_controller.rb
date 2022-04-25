@@ -1,16 +1,12 @@
 class UserRelationsController < ApplicationController
 
-  # boardからフォローするなら、board.id 160で、board = Board.find(params[:id])
-  # それでboardから名前出してフォローする
-
-  # フォローする場合
-  # users/show, users/index, boards/show -> params[:id] = board.idだからflash
   def create
-    if flash[:follow_user_name] # boardsから押した時
-      user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
+    if flash[:follow_user_name]
+      user = User.find_by(name: flash[:follow_user_name]) # board/show から押した時
     else
       user = User.find(params[:format]) # users/index show から
     end
+
     if @current_user.follow(user.id)
       flash[:notice] = "#{user.name}さんをフォローしました"
       redirect_to request.referer
@@ -20,7 +16,7 @@ class UserRelationsController < ApplicationController
   end
 
   def destroy
-    if flash[:follow_user_name] # boardsから押した時
+    if flash[:follow_user_name]
       user = User.find_by(name: flash[:follow_user_name]) # boards/show, users/showから
     else
       user = User.find(params[:id]) # users/index show から
@@ -34,10 +30,7 @@ class UserRelationsController < ApplicationController
     end
   end
 
-  # folllowings, followersはparams[:id]使えない。session,flash使う？
-  # sessionだと、消すタイミング難しそう。。。
-  # followings_path(@user.id)で、params[:format]として受け取れる！
-  # フォロー一覧
+  # フォローユーザー一覧
   def followings
     if params[:format].present?
       @user = User.find(params[:format])
@@ -45,7 +38,7 @@ class UserRelationsController < ApplicationController
     @users = @user.followings
   end
 
-  # フォロワー一覧
+  # フォロワーユーザー一覧
   def followers
     if params[:format].present?
       @user = User.find(params[:format])
@@ -56,7 +49,6 @@ class UserRelationsController < ApplicationController
   private
 
   def follow_params
-    # 受け取るのは commentテーブルの このカラム
     params.require(:follow).permit(:followed_id, :follower_id)
   end
 end
