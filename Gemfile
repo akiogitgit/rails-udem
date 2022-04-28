@@ -20,6 +20,7 @@ gem "gretel"
 gem 'carrierwave'
 # gem 'mini_magick'
 gem "ransack"
+gem "nokogiri", ">= 1.13.4"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
