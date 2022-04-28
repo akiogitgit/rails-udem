@@ -280,6 +280,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  nokogiri (>= 1.13.4)
   pg
   pry-byebug
   puma (~> 5.0)
